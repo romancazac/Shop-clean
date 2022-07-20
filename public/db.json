@@ -1,0 +1,114 @@
+{
+  "products": [
+    {
+      "id": 0,
+      "imageUrl": ["https://ecurat.md/assets/images/products/61/small/d3.jpg","https://ecurat.md/assets/images/products/61/small/d3.jpg","https://ecurat.md/assets/images/products/61/small/d3.jpg"],
+      "name": "Degreaser Force D3 - 5L",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 190,
+      "category": 0,
+      "rating": 4
+    },
+    {
+      "id": 1,
+      "imageUrl": ["https://ecurat.md/assets/images/products/141/small/2.jpg","https://ecurat.md/assets/images/products/141/small/2.jpg","https://ecurat.md/assets/images/products/141/small/2.jpg"],
+      "name": "Хлорсодержащие таблетки - Suma Tab D4",
+      "types": [0],
+      "sizes": [26, 40],
+      "price": 369,
+      "category": 0,
+      "rating": 6
+    },
+    {
+      "id": 2,
+      "imageUrl": ["https://ecurat.md/assets/images/products/56/small/d1-plus-1.5l-f.jpg","https://ecurat.md/assets/images/products/56/small/d1-plus-1.5l-f.jpg","https://ecurat.md/assets/images/products/56/small/d1-plus-1.5l-f.jpg"],
+      "name": "Suma star Plus D1 - 1.5L",
+      "types": [0],
+      "sizes": [26, 40],
+      "price": 390,
+      "category": 1,
+      "rating": 4
+    },
+    {
+      "id": 3,
+      "imageUrl": ["https://ecurat.md/assets/images/products/142/small/d1-test.jpg","https://ecurat.md/assets/images/products/142/small/d1-test.jpg","https://ecurat.md/assets/images/products/142/small/d1-test.jpg"],
+      "name": "ManuDish D1 - 5L",
+      "types": [1],
+      "sizes": [26, 30, 40],
+      "price": 275,
+      "category": 1,
+      "rating": 2
+    },
+    {
+      "id": 4,
+      "imageUrl": ["https://ecurat.md/assets/images/products/222/small/taia-classic.jpg","https://ecurat.md/assets/images/products/222/small/taia-classic.jpg","https://ecurat.md/assets/images/products/222/small/taia-classic.jpg"],
+      "name": "Taia гель для посуды (5L)",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 59,
+      "category": 1,
+      "rating": 8
+    },
+    {
+      "id": 5,
+      "imageUrl": ["https://ecurat.md/assets/images/products/222/small/taia-classic.jpg","https://ecurat.md/assets/images/products/222/small/taia-classic.jpg","https://ecurat.md/assets/images/products/222/small/taia-classic.jpg"],
+      "name": "Clean Crystal Rinse A8 5L ",  
+      "types": [0],
+      "sizes": [30, 40],
+      "price": 580,
+      "category": 2,
+      "rating": 2
+    },
+    {
+      "id": 6,
+      "imageUrl": ["https://ecurat.md/assets/images/products/59/small/a8-01-montazhnaya-oblast-1.jpg","https://ecurat.md/assets/images/products/59/small/a8-01-montazhnaya-oblast-1.jpg","https://ecurat.md/assets/images/products/59/small/a8-01-montazhnaya-oblast-1.jpg"],
+      "name": "Таблетки Sun Professional Classic - 200 шт.",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 675,
+      "category": 1,
+      "rating": 9
+    },
+    {
+      "id": 7,
+      "imageUrl":[ "https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg", "https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg", "https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg"],
+      "name": "Таблетки Sun Professional Classic - 200 шт.",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 450,
+      "category": 4,
+      "rating": 10
+    },
+    {
+      "id": 8,
+      "imageUrl": ["https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg"],
+      "name": "Четыре сезона",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 395,
+      "category": 5,
+      "rating": 10
+    },
+    {
+      "id": 9,
+      "imageUrl": ["https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg"],
+      "name": "Овощи и грибы 🌱",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 285,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 10,
+      "imageUrl": ["https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg","https://ecurat.md/assets/images/products/155/small/sun-classic-200.jpg"],
+      "name": "Овощи и грибы 🌱",
+      "types": [0, 1],
+      "sizes": [26, 30, 40],
+      "price": 285,
+      "category": 5,
+      "rating": 7
+    }
+  ]
+}
