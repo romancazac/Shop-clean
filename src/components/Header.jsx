@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
 import { categories } from '../db'
 import { setCategoryId } from '../redux/slices/filterSlice';
 
@@ -9,13 +9,52 @@ import wish from '../asset/img/wish.svg';
 import compare from '../asset/img/group.svg';
 import profile from '../asset/img/profile.svg';
 import LogIn from './LogIn';
+
+
+import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
+// import { fetchUserData } from '../redux/slices/authSlice';
+
+
+
+
+
+
 function Header() {
-   let params = useParams();
+   const isAuth = useSelector(selectIsAuth)
+   const params = useParams();
+   const push = useNavigate();
    const dispatch = useDispatch();
+
    const { totalPrice, totalCount } = useSelector(state => state.cart)
 
    const [popUp, setPopUp] = React.useState(false);
-   const [auth, setAuth] = React.useState(false);
+
+
+   const handleSing = async (email, password) => {
+
+      const  data  = await dispatch(
+         fetchSingIn({
+            email,
+            password
+         })
+
+      )
+      
+      if(!data.payload){
+         return alert('Не удалось авторизоватся!')
+      }
+      if('accessToken' in data.payload){
+         window.localStorage.setItem('token', data.payload.accessToken)
+      }
+        
+         console.log(data.payload)
+     
+
+
+
+   }
+
+
    const onCategoryIndex = React.useCallback((id) => {
       dispatch(setCategoryId(id))
    });
@@ -26,8 +65,20 @@ function Header() {
    const onClose = () => {
       setPopUp(false)
    }
+   React.useEffect(() => {
+      setPopUp(false)
 
-   console.log(params)
+
+   }, [params]);
+
+   React.useEffect(() => {
+
+      if (isAuth) {
+         setPopUp(false)
+         push('/profile')
+      }
+   }, [isAuth]);
+
 
    return (
       <header className="header">
@@ -57,7 +108,7 @@ function Header() {
                </div>
                <div className="header__action action">
                   {
-                     auth ?
+                     isAuth ?
                         <Link to="/profile" className="action__item" >
                            <img src={profile} alt="" />
                         </Link>
@@ -68,7 +119,7 @@ function Header() {
                         </button>
                   }
 
-                  <LogIn popUp={popUp} onClose={onClose} />
+                  <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} />
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <a href="compare.html" className="action__item">
                         <img src={compare} alt="" />

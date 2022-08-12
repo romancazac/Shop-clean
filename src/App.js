@@ -15,6 +15,7 @@ import ShopSingle from "./pages/ShopSingle";
 import { setCategoryId, setLimitPage, setPaginationPage, setSelectedPrice, setSortActive, setFilters } from "./redux/slices/filterSlice";
 import { fetchProducts } from './redux/slices/productsSlice'
 import Profile from "./pages/Profile";
+import Registration from "./components/Registration";
 
 
 
@@ -110,6 +111,7 @@ function App() {
         <Route path="/shop/:id" element={<ShopSingle />} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/Registration" element={<Registration/>} />
       </Route >
     </Routes>
 

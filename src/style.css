@@ -188,7 +188,9 @@ h6 {
 .scroll-top.active {
   opacity: 1;
 }
-
+.profile{
+  margin-top: 30px;
+}
 /*
 (i) Стили будут применяться ко 
 всем классам содержащим *__container
