@@ -1,10 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginStart, loginSuccess,loginFailure} from '../redux/slices/userSlice';
 const LogIn = ({popUp, onClose, handleSing}) => {
-   const [email, setMail] = useState('');
-   const [password, setPass] = useState('');
+   
+   const dispatch = useDispatch();
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
 
+   const {loading,error,token} = useSelector((state) => state.auth);
+   
+ 
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     dispatch(loginStart());
+     fetch('http://localhost:3001/login', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json'
+       },
+       body: JSON.stringify({ username, password })
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         dispatch(loginSuccess(data));
+        
+       })
+       .catch((error) => {
+         dispatch(loginFailure(error.message));
+       });
+   };
+ 
 
+useEffect(() => {
+   if(token){
+      window.localStorage.setItem('token',token);
+      
+   }
+},[token])
    return (
       <div id="user"  className={popUp ? "popup popup_show" : "popup"}>
          <div className="popup__wrapper">
@@ -18,21 +51,21 @@ const LogIn = ({popUp, onClose, handleSing}) => {
                         <div className="contact-form__line">
                            <input className="contact-form__input" type="text" name="tem" 
                               placeholder="Эл. Почта"
-                              value={email}
-                              onChange={(e) => setMail(e.target.value)}
+                              value={username}
+                              onChange={(e) => setUsername(e.target.value)}
                               required/>
                         </div>
                         <div className="contact-form__line">
                            <input className="contact-form__input" type="password" name="name" 
                            placeholder="Пароль"
                            value={password} 
-                           onChange={(e) => setPass(e.target.value) }
+                           onChange={(e) => setPassword(e.target.value) }
                            required/>
                               <a href="#" className="contact-form__link">Забыли Пароль?</a>
                         </div>
 
-                        <button type='submit' className="contact-form__btn btn-block " 
-                           onClick={() => handleSing(email, password) }
+                        <button  className="contact-form__btn btn-block " 
+                           onClick={handleSubmit}
                         >Вход</button>
                      </div>
                      <div className="contact-form__column">

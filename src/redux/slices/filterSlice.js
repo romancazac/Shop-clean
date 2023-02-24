@@ -5,6 +5,7 @@ const initialState = {
    paginationPage:1,
    limitPage:10,
    sortActive:['rating'],
+   searchProduct:""
 
 
 }
@@ -28,6 +29,9 @@ export const filterSlice = createSlice({
       setSortActive(state, action){
          state.sortActive = action.payload;
       },
+      setSearch(state,action) {
+         state.searchProduct = action.payload;
+      }
       // setFilters(state, action) {
       //    state.categoryId = Number(action.payload.categoryId);
       // }
@@ -35,5 +39,5 @@ export const filterSlice = createSlice({
    }
 })
 
-export const { setCategoryId, setPaginationPage, setLimitPage, setSelectedPrice, setSortActive, setFilters } = filterSlice.actions;
+export const { setCategoryId, setPaginationPage, setLimitPage, setSelectedPrice, setSortActive, setFilters,setSearch } = filterSlice.actions;
 export default filterSlice.reducer

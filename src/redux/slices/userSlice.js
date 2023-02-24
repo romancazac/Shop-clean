@@ -30,67 +30,66 @@ export const fetchSingIn = createAsyncThunk(
 
     }
 )
-export const fetchAuthMe = createAsyncThunk(
-    'user/fetchAuthMestatus',
-    async () => {
-        const auth = getAuth();
+// export const fetchAuthMe = createAsyncThunk(
+//     'user/fetchAuthMestatus',
+//     async () => {
+//         const auth = getAuth();
 
-        const { user } = await axios.get('/auth/me')
-        return user
+//         const { user } = await axios.get('/auth/me')
+//         return user
 
 
 
-    }
-)
-const initialState = {
-    user: null,
-    status: "loading"
-};
+//     }
+// )
 
 const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-       logOut(state) {
-            state.user = null;
-            state.status = "loading";
-        },
-        removeUser(state) {
-            state.user.email = null;
-            state.token = null;
-            state.id = null;
-        },
+    name: 'auth',
+    initialState: {
+      user: null,
+      token: null,
+      loading: false,
+      error: null
     },
-    extraReducers: {
-        [fetchUser.pending]: (state) => {
-            state.status = 'loading';
-            state.user = null
-        },
-        [fetchUser.fulfilled]: (state, action) => {
-            state.status = 'succes';
-            state.user = action.payload;
-
-        },
-        [fetchUser.rejected]: (state) => {
-            state.status = 'error';
-            state.user = null
-        },
-        [fetchSingIn.pending]: (state) => {
-            state.status = 'loading';
-            state.user = null
-        },
-        [fetchSingIn.fulfilled]: (state, action) => {
-            state.status = 'succes';
-            state.user = action.payload;
-
-        },
-        [fetchSingIn.rejected]: (state) => {
-            state.status = 'error';
-            state.user = null
-        },
+    reducers: {
+      loginStart: (state) => {
+        state.loading = true;
+        state.error = null;
+      },
+      loginSuccess: (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.loading = false;
+      }, 
+      loginFailure: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      registerStart: (state) => {
+        state.loading = true;
+        state.error = null;
+      },
+      registerSuccess: (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.loading = false;
+      },
+      registerFailure: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+      logout: (state) => {
+        state.user = null;
+        state.token = null;
+        state.loading = false;
+        state.error = null;
+      }
     }
+    
 });
-export const selectIsAuth = (state) => Boolean(state.auth.user);
-export const { logOut, removeUser } = userSlice.actions;
+export const selectIsAuth = state => Boolean(state.auth.user)
+
+export const { loginStart, loginSuccess, loginFailure, registerStart, registerSuccess, registerFailure, logout } = userSlice.actions;
+
 
 export default userSlice.reducer;

@@ -1,26 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BASE_URL } from "../../constants";
 
 // First, create the thunk
 export const fetchProducts = createAsyncThunk(
    'pizza/fetchProductstatus',
    async (params) => {
-      // const { 
-      //    category,
-      //    sort,
-      //    searchProduct,
-      //    page} = params;
-      // const { data } = await axios.get(`http://localhost:3001/Products?${page}${category}${sort}${searchProduct}`)
-      const {category,page, sort} = params;
+      const { 
+         category,
+         sort,
+         search,
+         page} = params;
+      const { data } = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}`)
+  
 
-      const { data } = await axios.get(`https://625406a519bc53e234775c39.mockapi.io/eclean?${category}${page}${sort}`)
+     
       return data;
    }
 )
 
 const initialState = {
-   products: [   
-   ],
+   products: []
   
 
 }

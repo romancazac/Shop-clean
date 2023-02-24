@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
 import { categories } from '../db'
@@ -12,6 +12,7 @@ import LogIn from './LogIn';
 
 
 import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
+import SearchProduct from './searchProduct/SearchProduct';
 // import { fetchUserData } from '../redux/slices/authSlice';
 
 
@@ -19,7 +20,7 @@ import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
 
 
 
-function Header() {
+function Header({onSearch}) {
    const isAuth = useSelector(selectIsAuth)
    const params = useParams();
    const push = useNavigate();
@@ -29,7 +30,7 @@ function Header() {
 
    const [popUp, setPopUp] = React.useState(false);
 
-
+   console.log(isAuth)
    const handleSing = async (email, password) => {
 
       const  data  = await dispatch(
@@ -95,16 +96,7 @@ function Header() {
             <div className="header__body">
                <a href="index.html" className="header__logo"><img src="../img/logo.png" alt="" /></a>
                <div className="header__search search" data-da="header__bottom-m,0,767">
-                  <form action="#" className="search__form">
-                     <input placeholder="Введите название товара" type="search" className="search__inp" />
-                     <select name="#" id="#" className="search__cat">
-                        <option value="Все категории">Все категории</option>
-                        <option value="cat1">cat 1</option>
-                        <option value="cat2">cat 2</option>
-                        <option value="cat3">cat 3</option>
-                     </select>
-                     <button type="submit" className="search__btn"></button>
-                  </form>
+                  <SearchProduct onSearch={onSearch}/>
                </div>
                <div className="header__action action">
                   {
@@ -118,7 +110,7 @@ function Header() {
 
                         </button>
                   }
-
+             
                   <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} />
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <a href="compare.html" className="action__item">

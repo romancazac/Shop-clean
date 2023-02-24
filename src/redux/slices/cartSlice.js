@@ -58,13 +58,16 @@ export const cartSlice = createSlice({
       removeItem(state, action) {
          state.items = state.items.filter((obj) => obj.id !== action.payload)
 
+         state.totalCount = state.items.reduce((count, obj) => {
+            return obj.count + count
+         }, 0);
+         state.totalPrice = state.items.reduce((sum, obj) => {
+
+            return obj.price * obj.count + sum;
+
+         }, 0);
       }
-      // setIsAdded(state, action){
-      //   const added = state.items.some((item) => item.id === action.payload.id);
-      //   if(added) {
-      //   state.isAdded = true
-      //   }
-      // }
+     
    }
 })
 export const { addItems, clearItems, removeItem, minusItem, setIsAdded } = cartSlice.actions

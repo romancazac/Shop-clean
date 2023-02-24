@@ -3,6 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import SlideProduct from '../components/SlideProduct';
 import Tabs from '../components/tabs/Tabs';
+import { BASE_URL } from '../constants';
 
 const ShopSingle = () => {
 
@@ -11,7 +12,7 @@ const ShopSingle = () => {
   React.useEffect(() => {
     async function fetchProduct () {
       try {
-          const {data} = await axios.get(`https://625406a519bc53e234775c39.mockapi.io/eclean/${id}`);
+          const {data} = await axios.get(`${BASE_URL}/products/${id}`);
           setProduct(data)
         
       } catch (error) {

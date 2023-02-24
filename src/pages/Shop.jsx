@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux'
 
 import BreadCrumbs from '../components/BreadCrumbs'
 import Categories from '../components/Categories'
+import { GridBtn } from '../components/gridBtn/GridBtn'
 import Pagination from '../components/pagination/Pagination'
 import Product from '../components/Product'
 import RangeSlider from '../components/sliderRange/SliderRange'
@@ -14,13 +15,10 @@ import {categories } from '../db'
 
 
 const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) => {
+   const [grid, setGrid] = useState("grid-5")
    const { products } = useSelector(state => state.products)
    const { limitPage } = useSelector(state => state.filter)
    const numberPage = [10, 20, 25, 30];
-
-
-   
-
    const [selectedPrice, setSelectedPrice] = React.useState([0, 5000]);
    const [list, setList] = React.useState(products);
 
@@ -114,10 +112,7 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                         </ul>
                         <div className="top-panel__display display">
                            <span className="top-panel__name">Отображать:</span>
-                           {/* <a href="#" className="display__btn">15</a>
-                           <a href="#" className="display__btn">20</a>
-                           <a href="#" className="display__btn">25</a>
-                           <a href="#" className="display__btn display__btn_active">30</a> */}
+
                            {
                               numberPage.map((number) =>
                                  <a href="#" className={limitPage === number ? 'display__btn display__btn_active' : 'display__btn'}
@@ -130,12 +125,11 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                         </div>
                      </div>
                      <div className="top-panel__rigth grid">
-                        <button className="grid__item grid__item_3 "></button>
-                        <button className="grid__item grid__item_4 _active"></button>
+                      <GridBtn setGrid={setGrid}/>
                      </div>
                   </div>
                   <div className="shop__product product-shop">
-                     <div className="product-shop__row product-shop__row-style grid-5">
+                     <div className={`product-shop__row product-shop__row-style ${grid}`}>
                         {products.length > 0 ?
 
                            list.map((item) =>

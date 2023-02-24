@@ -1,23 +1,35 @@
 import React, { useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from 'react-redux';
-import { fetchUser, setUser } from '../redux/slices/userSlice';
+
+import { useDispatch,useSelector } from 'react-redux';
+import { registerStart,registerSuccess,registerFailure } from '../redux/slices/userSlice';
 
 const Registration = () => {
    const dispatch = useDispatch();
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
  
-   const handleRegister = () => {
-         dispatch(
-            fetchUser({     
-               email,
-               password
-            })
-         )
-      
-   
-  }
+   const handleRegister = (e) => {
+      e.preventDefault();
+      dispatch(registerStart());
+      fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(registerSuccess(data));
+        })
+        .catch((error) => {dispatch(registerFailure(error.message));
+
+     
+    });
+  };
 
  
    return (
@@ -39,8 +51,8 @@ const Registration = () => {
                            </div>
                            <div className="contact-form__line">
                               <input className="contact-form__input" type="text" name="tem" placeholder="Эл. Почта"
-                                 value={email}
-                                 onChange={(e) => setEmail(e.target.value)}
+                                 value={username}
+                                 onChange={(e) => setUsername(e.target.value)}
                                  required />
                            </div>
                         </div>
