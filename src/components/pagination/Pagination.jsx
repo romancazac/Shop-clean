@@ -1,48 +1,35 @@
-import { useEffect,useState } from 'react';
+
+
+import { memo  } from 'react';
 import ReactPaginate from 'react-paginate';
+import {useSelector } from 'react-redux';
+
 
 import './pagination.scss'
-const Pagination = ({perPage}) => {
-   // const { perPage,setData,filterData} = useContext(AppContext);  
-   const [currentPage, setCurrentPage] = useState(1);
+const Pagination = memo(({onPaginationPage}) => {
 
-   const indexOfLastPost = currentPage * perPage;
-   const indexOfFirstPost = indexOfLastPost - perPage;
- 
-   const onPaginationPage = (nr) => {
-     setCurrentPage(nr);
-    
-   }
- 
- 
-   // const pageNumbers = [];
+   const { totalCount } = useSelector(state => state.products)
+   const { limitPage} = useSelector(state => state.filter)
+   const pageNumbers =   Math.ceil(totalCount / Number(limitPage))
 
-   // for (let i = 1; i <= Math.ceil(filterData.length / Number(perPage)); i++) {
-   //     pageNumbers.push(i);
-   // }
-   // useEffect(() => {
- 
-   //    const currentData  = filterData.slice(indexOfFirstPost, indexOfLastPost)
-   //     setData(
-   //       currentData
-   //     )
-       
-   //     },[currentPage,perPage])
+
+
 
    return (
       <div className="pagination">
+         
          <ReactPaginate
             breakLabel="..."
             nextLabel=">"
             onPageChange={(e) => onPaginationPage(e.selected + 1)}
             pageRangeDisplayed={5}
-            pageCount={3}
+            pageCount={pageNumbers}
             previousLabel="<"
             renderOnZeroPageCount={null}
          />
       </div>
 
    )
-}
+});
 
 export default Pagination

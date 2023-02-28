@@ -22,7 +22,9 @@ body {
   height: 100%;
   min-width: 320px;
 }
-
+#root{
+  height: 100%;
+}
 body {
   color: #000;
   line-height: 1;
@@ -1860,6 +1862,7 @@ body.popup-show::after {
 
 .shop__row {
   display: flex;
+   margin: 0 0 100px 0;
 }
 @media (max-width: 47.99875em) {
   .shop__row {
@@ -1872,6 +1875,7 @@ body.popup-show::after {
 }
 .shop__content {
   flex: 1 1 auto;
+ 
 }
 
 .aside__section {

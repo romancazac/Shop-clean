@@ -6,48 +6,50 @@ import { BASE_URL } from "../../constants";
 export const fetchProducts = createAsyncThunk(
    'pizza/fetchProductstatus',
    async (params) => {
-      const { 
-         category,
-         sort,
-         search,
-         page} = params;
-      const { data } = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}`)
-  
+      const { category, sort,  search,  page } = params; 
+      const  response  = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}`)
+      const totalCount = response.headers['x-total-count'];
 
-     
-      return data;
+
+      return {
+         products: response.data,
+         totalCount
+      }
    }
 )
 
 const initialState = {
-   products: []
-  
+   products: [],
+   totalCount: 0
+
 
 }
 
 export const productsSlice = createSlice({
    name: 'products',
-   
+
    initialState,
    reducers: {
       setProducts(state, action) {
          state.products = action.payload;
       }
-     
+
    },
    extraReducers: {
       [fetchProducts.pending]: (state) => {
          state.status = 'loading';
-         state.products= []
+         state.products = [];
+         state.totalCount = 0;
       },
       [fetchProducts.fulfilled]: (state, action) => {
-         
-         state.products = action.payload;
+         state.products = action.payload.products;
+         state.totalCount = action.payload.totalCount;
          state.status = 'succes';
       },
       [fetchProducts.rejected]: (state) => {
          state.status = 'error';
-         state.products = []
+         state.products = [];
+         state.totalCount = 0;
       },
    }
 })

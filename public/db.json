@@ -1,22 +1,7 @@
 {
   "users": [
     {
-      "id": "1677059844280",
-      "username": "sdfsdf@dfdf",
-      "password": "123456789"
-    },
-    {
-      "id": "1677066328182",
-      "username": "rom@gmal.com",
-      "password": "123456789"
-    },
-    {
-      "id": "1677066591606",
-      "username": "rom@gmal.com",
-      "password": "123456789"
-    },
-    {
-      "id": "1677068594199",
+      "id": "1677499723581",
       "username": "rom@gmal.com",
       "password": "123456789"
     }
@@ -213,6 +198,84 @@
     },
     {
       "id": 10,
+      "imageUrl": [
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg"
+      ],
+      "name": "Овощи и грибы 🌱",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 285,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 11,
+      "imageUrl": [
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg",
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg",
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg"
+      ],
+      "name": "Таблетки Sun Professional Classic - 200 шт.",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 450,
+      "category": 4,
+      "rating": 10
+    },
+    {
+      "id": 12,
+      "imageUrl": [
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg"
+      ],
+      "name": "Четыре сезона",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 395,
+      "category": 5,
+      "rating": 10
+    },
+    {
+      "id": 9,
+      "imageUrl": [
+        "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg"
+      ],
+      "name": "Овощи и грибы 🌱",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 285,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 13,
       "imageUrl": [
         "https://www.ecurat.md/storage/uploads/6c7fa231-3fc6-45d6-a6df-19435c03bbe4/manudish-d1new.jpg"
       ],

@@ -16,7 +16,7 @@ import { setCategoryId, setLimitPage, setPaginationPage, setSelectedPrice, setSo
 import { fetchProducts } from './redux/slices/productsSlice'
 import Profile from "./pages/Profile";
 import Registration from "./components/Registration";
-import {loginSuccess,loginStart} from './redux/slices/userSlice';
+import {fetchAuthMe} from './redux/slices/userSlice';
 
 
 function App() {
@@ -27,13 +27,12 @@ function App() {
   // const isMounted = React.useRef(false);
   const {user} = useSelector((state) => state.auth);
 
-  const { categoryId, paginationPage, limitPage, sortActive,searchProduct} = useSelector(state => state.filter)
+  const { categoryId, limitPage,indexOfLastPost,indexOfFirstPost, sortActive,searchProduct,paginationPage} = useSelector(state => state.filter)
 
   const category = `${categoryId !== ''  ? `&category=${categoryId}` : ''}`;
-  const page = `&page=${paginationPage}&limit=${limitPage}`;
+  const page = `_page=${paginationPage}&_limit=${limitPage}`;
   const sort = `&sortby=${sortActive}`;
   const search = `${category}&q=${searchProduct}`;
-  // let updatedList = list;
   const getProducts = () => {
     dispatch(fetchProducts({
       category,
@@ -53,6 +52,7 @@ function App() {
     dispatch(setSearch(''));
   });
   const onPaginationPage = useCallback((number) => {
+    console.log(number)
     dispatch(setPaginationPage(number))
   });
   const onLimitPage = useCallback((number) => {
@@ -71,24 +71,9 @@ function App() {
 // verificăm dacă utilizatorul este autentificat pe baza token-ului din localStorage
 useEffect(() => {
   if (!user) {
-    // verificați dacă utilizatorul este logat și încercați să vă conectați
     const token = localStorage.getItem('token');
     if (token) {
-      dispatch(loginStart())
-      fetch('http://localhost:3001/users', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          dispatch(loginSuccess(data));
-        })
-        .catch((error) => {
-          localStorage.removeItem('token');
-        });
+      dispatch(fetchAuthMe(token))  
     }
   }
 }, [dispatch, user]);

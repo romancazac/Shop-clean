@@ -14,10 +14,9 @@ server.post('/login', (req, res) => {
     const token = jwt.sign({ userId: user.id }, 'secretKey', { expiresIn: '1h' });
     res.status(200).jsonp({
       token,
-      user: {
-        id: user.id,
-        username: user.username
-      }
+      id: user.id,
+      username: user.username
+      
     });
   } else {
     res.status(401).jsonp({ error: 'Credențiale invalide' });
@@ -46,11 +45,9 @@ server.get('/users', (req, res) => {
     const user = router.db.get('users').find({ id: decodedToken.userId }).value();
     if (user) {
       res.status(200).jsonp({
-       
-        user:{
         id: user.id,
         username: user.username
-      }});
+      });
     } else {
       res.status(404).jsonp({ error: 'Utilizatorul nu a fost găsit' });
     }

@@ -9,14 +9,14 @@ import Pagination from '../components/pagination/Pagination'
 import Product from '../components/Product'
 import RangeSlider from '../components/sliderRange/SliderRange'
 import Sort from '../components/Sort'
-import {categories } from '../db'
+import { categories } from '../db'
 
 
 
 
-const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) => {
+const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) => {
    const [grid, setGrid] = useState("grid-5")
-   const { products } = useSelector(state => state.products)
+   const { products} = useSelector(state => state.products)
    const { limitPage } = useSelector(state => state.filter)
    const numberPage = [10, 20, 25, 30];
    const [selectedPrice, setSelectedPrice] = React.useState([0, 5000]);
@@ -33,7 +33,6 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
    const applyFilters = () => {
       let updatedList = products;
       // Price Filter
-
       updatedList = updatedList.filter(
          (item) => item.price >= minPrice && item.price <= maxPrice
 
@@ -51,7 +50,7 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
 
 
       <div className="shop">
-         <BreadCrumbs title="Магазин"/>
+         <BreadCrumbs title="Магазин" />
          <div className="shop__container">
             <div className="shop__row">
                <aside className="shop__aside aside">
@@ -60,7 +59,7 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                      <div className="aside__range range-slide">
                         <div className="range-slide__inputs">
                            <div className="range-slide__col">
-                              {minPrice} MDL                             
+                              {minPrice} MDL
                            </div>
                            <div className="range-slide__col">
                               {maxPrice}  MDL
@@ -121,11 +120,11 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                            }
                         </div>
                         <div className="top-panel__sort sort">
-                         <Sort onSortProp={onSortProp } />
+                           <Sort onSortProp={onSortProp} />
                         </div>
                      </div>
                      <div className="top-panel__rigth grid">
-                      <GridBtn setGrid={setGrid}/>
+                        <GridBtn setGrid={setGrid} />
                      </div>
                   </div>
                   <div className="shop__product product-shop">
@@ -133,7 +132,7 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                         {products.length > 0 ?
 
                            list.map((item) =>
-                              <Product {...item}  key={item.id}/>
+                              <Product {...item} key={item.id} />
                            )
                            :
                            'товаров нет (('
@@ -141,12 +140,9 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp  }) =
                      </div>
 
                   </div>
-                  {
-
-                  }
                   
-                  <Pagination onPaginationPage={onPaginationPage} />
-                 
+                      <Pagination onPaginationPage={onPaginationPage} /> 
+                  
                </div>
             </div>
          </div>

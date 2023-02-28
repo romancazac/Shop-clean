@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { BASE_URL } from '../../constants';
 
 
 // create user
@@ -20,28 +21,35 @@ export const fetchUser = createAsyncThunk(
 // sing in
 export const fetchSingIn = createAsyncThunk(
     'user/fetchSingInstatus',
-    async (params) => {
-        const auth = getAuth();
-        const { email, password } = params;
-        const { user } = await signInWithEmailAndPassword(auth, email, password);
-        return user
+    async ({username, password}) => {
+      const { data } = await axios.post(`${BASE_URL}/login`, {
+        username,
+        password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+     
+      return data;
+    }
 
+    
+)
+export const fetchAuthMe = createAsyncThunk(
+    'user/fetchAuthMestatus',
+    async (token) => {
+        const { data} = await axios.get(`${BASE_URL}/users`,{        
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+       
+        return data
 
 
     }
 )
-// export const fetchAuthMe = createAsyncThunk(
-//     'user/fetchAuthMestatus',
-//     async () => {
-//         const auth = getAuth();
-
-//         const { user } = await axios.get('/auth/me')
-//         return user
-
-
-
-//     }
-// )
 
 const userSlice = createSlice({
     name: 'auth',
@@ -52,19 +60,11 @@ const userSlice = createSlice({
       error: null
     },
     reducers: {
-      loginStart: (state) => {
-        state.loading = true;
-        state.error = null;
-      },
       loginSuccess: (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.loading = false;
       }, 
-      loginFailure: (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      },
       registerStart: (state) => {
         state.loading = true;
         state.error = null;
@@ -74,18 +74,46 @@ const userSlice = createSlice({
         state.token = action.payload.token;
         state.loading = false;
       },
-      registerFailure: (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      },
+
       logout: (state) => {
         state.user = null;
         state.token = null;
         state.loading = false;
         state.error = null;
       }
-    }
+    },
+    extraReducers: {
+      [fetchAuthMe.pending]: (state) => {
+        state.user = ''
+        state.token = ''
+        state.loading = true;
+      },
+      [fetchAuthMe.fulfilled]: (state, action) => {     
+        state.user = action.payload;
+        state.loading = false;
+      },
+      [fetchAuthMe.rejected]: (state) => {
+        state.loading = false;
+        state.error = true;
+        window.localStorage.removeItem('token');
+      },
+// ----------
+      [fetchSingIn.pending]: (state) => {
+        state.user = ''
+        state.token = ''
+        state.loading = true;
+      },
+      [fetchSingIn.fulfilled]: (state, action) => {
+        state.user = action.payload;
+        state.token = action.payload.token;
+        state.loading = false;
+      },
+      [fetchSingIn.rejected]: (state) => {
+        state.loading = false;
+        state.error = true;
     
+      },
+   }
 });
 export const selectIsAuth = state => Boolean(state.auth.user)
 
