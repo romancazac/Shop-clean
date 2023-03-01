@@ -1,7 +1,7 @@
-import { useCallback,useState,useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import QueryString from "qs";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate,Route,Routes } from 'react-router-dom';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 
 import qs from 'qs';
 
@@ -16,20 +16,22 @@ import { setCategoryId, setLimitPage, setPaginationPage, setSelectedPrice, setSo
 import { fetchProducts } from './redux/slices/productsSlice'
 import Profile from "./pages/Profile";
 import Registration from "./components/Registration";
-import {fetchAuthMe} from './redux/slices/userSlice';
+import { fetchAuthMe } from './redux/slices/userSlice';
+import { Wish } from "./components/wish/Wish";
 
 
 function App() {
 
   // const navigate = useNavigate();
-  const dispatch = useDispatch();
   // const isSearch = React.useRef(false);
   // const isMounted = React.useRef(false);
-  const {user} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const { categoryId, limitPage,indexOfLastPost,indexOfFirstPost, sortActive,searchProduct,paginationPage} = useSelector(state => state.filter)
+  const { user } = useSelector((state) => state.auth);
 
-  const category = `${categoryId !== ''  ? `&category=${categoryId}` : ''}`;
+  const { categoryId, limitPage, sortActive, searchProduct, paginationPage } = useSelector(state => state.filter)
+
+  const category = `${categoryId !== '' ? `&category=${categoryId}` : ''}`;
   const page = `_page=${paginationPage}&_limit=${limitPage}`;
   const sort = `&sortby=${sortActive}`;
   const search = `${category}&q=${searchProduct}`;
@@ -62,32 +64,32 @@ function App() {
     dispatch(setSortActive(value))
 
   });
-  const onSearch = (name,cat) => {
+  const onSearch = (name, cat) => {
     dispatch(setSearch(name));
     dispatch(setCategoryId(cat))
   }
 
 
-// verificăm dacă utilizatorul este autentificat pe baza token-ului din localStorage
-useEffect(() => {
-  if (!user) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      dispatch(fetchAuthMe(token))  
+  // verificăm dacă utilizatorul este autentificat pe baza token-ului din localStorage
+  useEffect(() => {
+    if (!user) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        dispatch(fetchAuthMe(token))
+      }
     }
-  }
-}, [dispatch, user]);
+  }, [dispatch, user]);
   // React.useEffect(() => {
   //   if (isMounted.current) {
   //     const queryString = qs.stringify({
 
   //       categoryId
-  
+
   //     })
   //     navigate(`shop/?${queryString}`);
   //   }
-  
-    
+
+
   //   isMounted.current = true;
   // }, [categoryId]);
 
@@ -101,12 +103,12 @@ useEffect(() => {
   //   }, []);
 
 
- useEffect(() => {
+  useEffect(() => {
     getProducts()
 
-  }, [onCategoryIndex, onPaginationPage, onLimitPage, onSortProp,onSearch ]);
+  }, [onCategoryIndex, onPaginationPage, onLimitPage, onSortProp, onSearch]);
 
- 
+
 
 
 
@@ -114,7 +116,7 @@ useEffect(() => {
   return (
 
     <Routes>
-      <Route path="/" element={<MainLayout  onSearch={onSearch}/>}>
+      <Route path="/" element={<MainLayout onSearch={onSearch} />}>
 
 
         <Route path="shop" element={<Shop
@@ -122,14 +124,15 @@ useEffect(() => {
           onPaginationPage={onPaginationPage}
           onLimitPage={onLimitPage}
           onSortProp={onSortProp}
-         
+
         />}>
 
         </Route >
         <Route path="/shop/:id" element={<ShopSingle />} />
-        <Route path="/cart" element={<Cart/>} />
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/Registration" element={<Registration/>} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/wish" element={<Wish/>} />
+        <Route path="/Registration" element={<Registration />} />
       </Route >
     </Routes>
 

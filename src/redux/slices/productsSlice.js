@@ -4,7 +4,7 @@ import { BASE_URL } from "../../constants";
 
 // First, create the thunk
 export const fetchProducts = createAsyncThunk(
-   'pizza/fetchProductstatus',
+   'products/fetchProductstatus',
    async (params) => {
       const { category, sort,  search,  page } = params; 
       const  response  = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}`)

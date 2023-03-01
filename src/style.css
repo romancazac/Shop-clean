@@ -2148,6 +2148,7 @@ body.popup-show::after {
   flex-direction: column;
   height: 100%;
 }
+
 .product-shop__items:hover .product-shop__img {
   transform: scale(1.05);
 }

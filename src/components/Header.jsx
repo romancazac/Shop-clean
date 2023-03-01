@@ -27,6 +27,7 @@ function Header({onSearch}) {
    const dispatch = useDispatch();
 
    const { totalPrice, totalCount } = useSelector(state => state.cart)
+   const { countWish } = useSelector(state => state.wish)
 
    const [popUp, setPopUp] = React.useState(false);
 
@@ -117,10 +118,10 @@ function Header({onSearch}) {
                         <img src={compare} alt="" />
                         <span className="action__count">3</span>
                      </a>
-                     <a href="wish.html" className="action__item">
+                     <Link to="/wish" className="action__item">
                         <img src={wish} alt="" />
-                        <span className="action__count">1</span>
-                     </a>
+                        <span className="action__count">{countWish}</span>
+                     </Link>
                   </div>
 
                   <Link to="/cart" className="action__item">
