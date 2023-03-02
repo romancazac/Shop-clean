@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { calcTotalCount, calcTotalPrice } from "../../utils/calcToatalPrice";
+import { getCartFromLs } from "../../utils/getCartFromLs";
 
+
+const {items,totalPrice,totalCount} = getCartFromLs()
+console.log(getCartFromLs())
 const initialState = {
-   items: [],
-   totalPrice: 0,
-   totalCount: 0,
+   items,
+   totalPrice,
+   totalCount,
    isAdded: 0,
 }
 
@@ -24,17 +29,8 @@ export const cartSlice = createSlice({
             });
 
          }
-
-
-         state.totalPrice = state.items.reduce((sum, obj) => {
-
-            return obj.price * obj.count + sum;
-
-         }, 0);
-
-         state.totalCount = state.items.reduce((count, obj) => {
-            return obj.count + count
-         }, 0);
+        state.totalPrice = calcTotalPrice(state.items)
+        state.totalCount = calcTotalCount(state.items)
       },
       minusItem(state, action) {
 
@@ -45,31 +41,18 @@ export const cartSlice = createSlice({
          )
          if (findItem.count < 1) {
             findItem.count = 1
-         }
-         state.totalCount = state.items.reduce((count, obj) => {
-            return obj.count + count
-         }, 0);
-         state.totalPrice = state.items.reduce((sum, obj) => {
-
-            return obj.price * obj.count + sum;
-
-         }, 0);
+         }       
+         state.totalCount = calcTotalCount(state.items)
+         state.totalPrice =  calcTotalPrice(state.items)
       },
       removeItem(state, action) {
          state.items = state.items.filter((obj) => obj.id !== action.payload)
-
-         state.totalCount = state.items.reduce((count, obj) => {
-            return obj.count + count
-         }, 0);
-         state.totalPrice = state.items.reduce((sum, obj) => {
-
-            return obj.price * obj.count + sum;
-
-         }, 0);
+         state.totalCount = calcTotalCount(state.items)
+         state.totalPrice = calcTotalPrice(state.items)
       }
      
    }
 })
-export const { addItems, clearItems, removeItem, minusItem, setIsAdded } = cartSlice.actions
+export const { addItems, clearItems, removeItem, minusItem } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -2,26 +2,19 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
-import { addItems, minusItem, removeItem } from '../../redux/slices/cartSlice';
+import {  removeItem } from '../../redux/slices/cartSlice';
+import { Quantity } from '../quantity/Quantity';
 
 
 
 const ProductCart = ({ id, name, price, imageUrl, count }) => {
    const dispatch = useDispatch();
-   const {totalCount} = useSelector(state => state.cart);
-   const onPlus = () => {
-      dispatch(addItems({id}));
-   }
+
 
    const onRemove = () => {
       dispatch(removeItem(id));
    }
-   const onMinus = () => {
-      dispatch(minusItem(id));
-   } 
-   React.useEffect(() => {
-      
-   },[totalCount])
+
  
    return (
       <>
@@ -37,16 +30,7 @@ const ProductCart = ({ id, name, price, imageUrl, count }) => {
             </div>
             <div class="products-cart__price products-cart__col">{price} MDL</div>
             <form class="products-cart__cant  products-cart__col">
-               <div class="quantity">
-                  <div class="quantity__button quantity__button_minus _icon-minus"
-                     onClick={onMinus}
-                  ></div>
-                  <div class="quantity__input"><input autocomplete="off" type="text" name="form[]"
-                     value={count} /></div>
-                  <div class="quantity__button quantity__button_plus _icon-plus"
-                     onClick={onPlus}
-                  ></div>
-               </div>
+               <Quantity id={id} count={count}/>
 
             </form>
             <div class="products-cart__price products-cart__price-total products-cart__col">{price * count} MDL</div>

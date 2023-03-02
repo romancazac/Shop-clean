@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
+import { Quantity } from '../components/quantity/Quantity';
 import SlideProduct from '../components/SlideProduct';
 import Tabs from '../components/tabs/Tabs';
 import { BASE_URL } from '../constants';
@@ -9,6 +11,14 @@ const ShopSingle = () => {
 
   const {id} = useParams();
   const [product, setProduct] = React.useState();
+  const {items} = useSelector(state => state.cart)
+
+  const countFind = () => {
+    const find = items.find((obj) => obj.id == id)
+    return find?.count
+  }
+
+ 
   React.useEffect(() => {
     async function fetchProduct () {
       try {
@@ -25,6 +35,7 @@ const ShopSingle = () => {
  if(!product) {
    return 'Загруска'
  }
+
   return (
     <div className="shop">
     <div className="shop__container">
@@ -52,12 +63,7 @@ const ShopSingle = () => {
               </p>
               <div className="product-info__links">
 
-                <div className="product-info__q quantity">
-                  <div className="quantity__button quantity__button_minus _icon-minus"></div>
-                  <div className="quantity__input"><input type="text" name="form[]"
-                      value="1"/></div>
-                  <div className="quantity__button quantity__button_plus _icon-plus"></div>
-                </div>
+                <Quantity id={id} count={countFind()}/>
                 <button className="product-shop__add btn-block ">Добавить в корзину</button>
               </div>
               <div className="product-info__action action-product">

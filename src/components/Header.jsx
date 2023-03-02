@@ -13,10 +13,6 @@ import LogIn from './LogIn';
 
 import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
 import SearchProduct from './searchProduct/SearchProduct';
-// import { fetchUserData } from '../redux/slices/authSlice';
-
-
-
 
 
 
@@ -112,7 +108,7 @@ function Header({onSearch}) {
                         </button>
                   }
              
-                  <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} />
+                  <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} setPopUp={setPopUp}/>
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <a href="compare.html" className="action__item">
                         <img src={compare} alt="" />

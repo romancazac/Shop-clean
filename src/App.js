@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import QueryString from "qs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Route, Routes } from 'react-router-dom';
@@ -17,7 +17,7 @@ import { fetchProducts } from './redux/slices/productsSlice'
 import Profile from "./pages/Profile";
 import Registration from "./components/Registration";
 import { fetchAuthMe } from './redux/slices/userSlice';
-import { Wish } from "./components/wish/Wish";
+import { Wish } from "./pages/Wish";
 
 
 function App() {
@@ -30,6 +30,9 @@ function App() {
   const { user } = useSelector((state) => state.auth);
 
   const { categoryId, limitPage, sortActive, searchProduct, paginationPage } = useSelector(state => state.filter)
+
+
+
 
   const category = `${categoryId !== '' ? `&category=${categoryId}` : ''}`;
   const page = `_page=${paginationPage}&_limit=${limitPage}`;
@@ -111,8 +114,6 @@ function App() {
 
 
 
-
-
   return (
 
     <Routes>
@@ -131,7 +132,7 @@ function App() {
         <Route path="/shop/:id" element={<ShopSingle />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/wish" element={<Wish/>} />
+        <Route path="/wish" element={<Wish />} />
         <Route path="/Registration" element={<Registration />} />
       </Route >
     </Routes>

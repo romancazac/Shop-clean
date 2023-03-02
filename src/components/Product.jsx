@@ -1,17 +1,18 @@
 
-import React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { addItems, setIsAdded } from '../redux/slices/cartSlice'
 import { addInWish } from '../redux/slices/wishSlice'
 import { removeInWish } from '../redux/slices/wishSlice'
+
 const Product = ({ id, name, imageUrl, price, category, wish }) => {
    const dispatch = useDispatch();
-   const { isAdded } = useSelector(state => state.cart);
+   const { items } = useSelector(state => state.cart);
+   const isMounted = useRef(false);
+   const [addedWish, setAddedWish] = useState(false);
 
-   const [added, setAdded] = React.useState(false);
-   const [addedWish, setAddedWish] = React.useState(false);
    const obj = {
       id,
       name,
@@ -19,16 +20,27 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
       price,
       category
    }
-   const onAddItem = () => {
 
+   const onAddItem = () => {
       dispatch(addItems(obj))
-      setAdded(true)
    }
 
    const onAddWish = () => {
       dispatch(addInWish(obj))
       setAddedWish(true)
    }
+   const addedInCart = () => {
+      const findProduct = items.some((obj) => obj.id === id);
+      return findProduct
+   }
+
+   useEffect(() => {
+      if (isMounted.current) {
+         const json = JSON.stringify(items);
+         localStorage.setItem('cart', json)
+      }
+      isMounted.current = true
+   }, [items])
 
    return (
       <div className="product-shop__column">
@@ -60,11 +72,12 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
             </Link>
 
             <span className="product-shop__price">{price} MDL</span>
-            <button
-               className={added ? 'product-shop__add btn-block _added' : 'product-shop__add btn-block'}
+            <button className={
+               `product-shop__add btn-block ${addedInCart() && '_added'}`
+            }
                onClick={onAddItem}
-
-            ><span>В корзину</span></button>
+            ><span>В корзину</span>
+            </button>
             {
                !wish &&
                <div className="product-shop__social">

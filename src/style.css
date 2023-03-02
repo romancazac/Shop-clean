@@ -3245,7 +3245,7 @@ body.popup-show::after {
   background-image: url("./asset/img/close.svg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 .products-cart__delete:hover {
   opacity: 0.6;

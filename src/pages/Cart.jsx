@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import BreadCrumbs from '../components/BreadCrumbs'
 
@@ -6,7 +6,16 @@ import ProductCart from '../components/cart/ProductCart'
 const Cart = () => {
    const dispatch = useDispatch();
    const { items, totalPrice, totalCount } = useSelector(state => state.cart);
+   console.log(items)
+const isMounted = useRef(false);
 
+useEffect(() => {
+   if(isMounted.current){
+      const json = JSON.stringify(items);
+      localStorage.setItem('cart', json)
+   }
+isMounted.current= true
+},[items])
 
    return (
       <div class="cart">
@@ -28,7 +37,8 @@ const Cart = () => {
                 
                   {
                      items.map((item) =>
-                        <ProductCart {...item} key={item.id}/>
+                     console.log(item)
+                        // <ProductCart {...item} key={item.id}/>
                      )
                      
                      

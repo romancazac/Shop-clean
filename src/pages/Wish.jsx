@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeInWish } from '../../redux/slices/wishSlice'
-import Product from '../Product'
+import { removeInWish } from '../redux/slices/wishSlice'
+import Product from '../components/Product'
+import BreadCrumbs from '../components/BreadCrumbs'
 
 export const Wish = () => {
 
@@ -9,27 +10,17 @@ export const Wish = () => {
    const dispatch = useDispatch()
    return (
       <>
-         <div class="top-block" style={{backgroundImage: `url('../img/crumbs-bg.png')`}}>
-            <div class="top-block__container">
-               <div class="top-block__body">
-                  <h1 class="top-block__title">Список моих желаний</h1>
-                  <ul class="top-panel__breadcrumb breadcrumb breadcrumb_w">
-                     <li><a href="shop.html" class="breadcrumb__item">Главная</a></li>
-                     <li><a class="breadcrumb__item breadcrumb__item_active">Список моих желаний</a></li>
-                  </ul>
-               </div>
-            </div>
-         </div>
+         <BreadCrumbs title="Список моих желаний"/>
          <div class="wish">
             <div class="wish__container">
                <div class="wish__items block-products block-products_wish">
                   {
                      items?.map((item) =>
-                        <Product {...item} wish={true}/>
+                        <Product {...item} wish={true} />
 
                      )
                   }
-{/* 
+                  {/* 
                   <div class="block-products__column">
                      <article class="product-shop__items">
                         <button class="products-cart__delete block-products__delete"
