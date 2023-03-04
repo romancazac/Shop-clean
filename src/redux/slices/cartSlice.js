@@ -4,7 +4,6 @@ import { getCartFromLs } from "../../utils/getCartFromLs";
 
 
 const {items,totalPrice,totalCount} = getCartFromLs()
-console.log(getCartFromLs())
 const initialState = {
    items,
    totalPrice,

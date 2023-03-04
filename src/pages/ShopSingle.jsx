@@ -1,24 +1,25 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
+import { AddToCart } from '../components/addToCart/AddToCart';
 import { Quantity } from '../components/quantity/Quantity';
 import SlideProduct from '../components/SlideProduct';
+import { Spinner } from '../components/spinner/Spinner';
 import Tabs from '../components/tabs/Tabs';
 import { BASE_URL } from '../constants';
 
 const ShopSingle = () => {
 
   const {id} = useParams();
-  const [product, setProduct] = React.useState();
+  const [product, setProduct] = React.useState([]);
   const {items} = useSelector(state => state.cart)
 
   const countFind = () => {
-    const find = items.find((obj) => obj.id == id)
+    const find = items.find((obj) => obj.id == id);
     return find?.count
   }
 
- 
   React.useEffect(() => {
     async function fetchProduct () {
       try {
@@ -33,7 +34,7 @@ const ShopSingle = () => {
   }, []);
 
  if(!product) {
-   return 'Загруска'
+   return <Spinner/>
  }
 
   return (
@@ -42,16 +43,17 @@ const ShopSingle = () => {
       <div className="shop__product product">
         <div className="product__row">
           <SlideProduct product={product}/>
+    
           <div className="product__column product-info">
 
             <ul className="product-info__crumb top-panel__breadcrumb breadcrumb">
               <li><a href="shop.html" className="breadcrumb__item">Товары</a></li>
               <li><a className="breadcrumb__item breadcrumb__item_active">Моющие средства</a></li>
             </ul>
-            <form action="#">
+            
               <h4 className="product-info__name">{product.name}
               </h4>
-              <span className="product-info__price product-shop__price">320.00 MDL</span>
+              <span className="product-info__price product-shop__price">{product.price} MDL</span>
               <h5 className="product-info__subname">Описание
               </h5>
               <p className="product-info__desc">
@@ -62,9 +64,8 @@ const ShopSingle = () => {
                 faucibus. Est vitae, venenatis, sed natoque at nunc.
               </p>
               <div className="product-info__links">
-
-                <Quantity id={id} count={countFind()}/>
-                <button className="product-shop__add btn-block ">Добавить в корзину</button>
+                <Quantity id={Number(id)} count={countFind()}/>
+                <AddToCart added={false} obj={product}/>
               </div>
               <div className="product-info__action action-product">
                 <button className="action-product__item action-product__item_compare _active">Добавить в
@@ -89,7 +90,7 @@ const ShopSingle = () => {
                 *цена товара действует в пределах доступности на складе товара. Уточните наличие по
                 телефону.
               </div>
-            </form>
+            
 
 
 

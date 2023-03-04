@@ -31,13 +31,13 @@ const Tabs = () => {
       setActiveTab(id)
 
    }
-   console.log(activeTab)
+
    return (
       <div className="product-tabs" >
          <nav className="product-tabs__nav" >
             {
                tabs.map((item) =>
-                  <button className={activeTab === item.id ? 'product-tabs__btn _tab-active' : 'product-tabs__btn'}
+                  <button key={item.name} className={activeTab === item.id ? 'product-tabs__btn _tab-active' : 'product-tabs__btn'}
                      onClick={() => onNavClick(item.id)}
                   >{item.name}</button>
                )
@@ -46,7 +46,7 @@ const Tabs = () => {
          <div className="product-tabs__body">
             {
                tabs.map((item) =>
-                  <div className={activeTab === item.id ? 'product-tabs__row active' :'product-tabs__row'} >
+                  <div key={item.id} className={activeTab === item.id ? 'product-tabs__row active' :'product-tabs__row'} >
                      {
                         item.video ?
                            <>

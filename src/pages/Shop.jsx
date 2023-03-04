@@ -10,6 +10,7 @@ import Pagination from '../components/pagination/Pagination'
 import Product from '../components/Product'
 import RangeSlider from '../components/sliderRange/SliderRange'
 import Sort from '../components/Sort'
+import { Spinner } from '../components/spinner/Spinner'
 import { categories } from '../db'
 
 
@@ -17,7 +18,7 @@ import { categories } from '../db'
 
 const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) => {
    const [grid, setGrid] = useState("grid-5")
-   const { products} = useSelector(state => state.products)
+   const { products, status } = useSelector(state => state.products)
    const { limitPage } = useSelector(state => state.filter)
    const numberPage = [10, 20, 25, 30];
    const [selectedPrice, setSelectedPrice] = React.useState([0, 5000]);
@@ -130,20 +131,21 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) =>
                   </div>
                   <div className="shop__product product-shop">
                      <div className={`product-shop__row product-shop__row-style ${grid}`}>
-                        {products.length > 0 ?
+                        {status === "loading" || list.length <= 0 ?
+                           <Spinner />
+                           :
 
                            list.map((item) =>
                               <Product {...item} key={item.id} />
                            )
-                           :
-                           'товаров нет (('
+
                         }
                      </div>
 
                   </div>
-                  
-                      <Pagination onPaginationPage={onPaginationPage} /> 
-                  
+
+                  <Pagination onPaginationPage={onPaginationPage} />
+
                </div>
             </div>
          </div>

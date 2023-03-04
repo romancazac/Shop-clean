@@ -20,9 +20,9 @@ const Categories = ({ id, item, name, onCategoryIndex }) => {
             <ul className="aside-category__list">
                {
                   item.subcategory.map((item, index) =>
-                     <li className="aside-category__li" key={item.id} onClick={() => onCategoryIndex(item.id)}>
+                     <li className="aside-category__li" key={item.id} onClick={() => onCategoryIndex(item.name)}>
                         <button 
-                        className={categoryId === item.id ? 'aside-category__btn _active' : 'aside-category__btn'}
+                        className={`aside-category__btn ${categoryId == item.name &&  '_active'}` }
                         >{item.name}</button></li>
                   )
 

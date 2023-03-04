@@ -20,7 +20,8 @@ export const fetchProducts = createAsyncThunk(
 
 const initialState = {
    products: [],
-   totalCount: 0
+   totalCount: 0,
+   status:"loading"
 
 
 }

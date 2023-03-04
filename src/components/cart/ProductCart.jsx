@@ -19,21 +19,21 @@ const ProductCart = ({ id, name, price, imageUrl, count }) => {
    return (
       <>
 
-         <div class="products-cart__row ">
-            <button class="products-cart__delete" onClick={onRemove}>
+         <div className="products-cart__row ">
+            <button className="products-cart__delete" onClick={onRemove}>
             </button>
-            <div class="products-cart__items ">
-               <a href="#" class="products-cart__img">
+            <div className="products-cart__items ">
+               <a href="#" className="products-cart__img">
                   <img src={imageUrl} alt="" />
                </a>
-               <Link to={`/shop/${id}`} class="products-cart__name">{name}</Link>
+               <Link to={`/shop/${id}`} className="products-cart__name">{name}</Link>
             </div>
-            <div class="products-cart__price products-cart__col">{price} MDL</div>
-            <form class="products-cart__cant  products-cart__col">
+            <div className="products-cart__price products-cart__col">{price} MDL</div>
+            <form className="products-cart__cant  products-cart__col">
                <Quantity id={id} count={count}/>
 
             </form>
-            <div class="products-cart__price products-cart__price-total products-cart__col">{price * count} MDL</div>
+            <div className="products-cart__price products-cart__price-total products-cart__col">{price * count} MDL</div>
          </div>
 
 

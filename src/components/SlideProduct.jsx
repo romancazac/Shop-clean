@@ -19,14 +19,14 @@ const SlideProduct = ({ product }) => {
          prevEl: '.nav-slide__up'
        },
    }
-   console.log(thumbsSwiper)
+
    return (
       <div className="product__column product-slide">
          <div className="product-slide__nav nav-slide ">
             <div className="nav-slide__items gallery-thumbs">
                <Swiper {...thumbsParams}>
                   {
-                     product.imageUrl.map((item, i) => <SwiperSlide key={i}>
+                     product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
                         <div className="nav-slide__item ">
                            <img src={item} alt="" />
                         </div>
@@ -47,7 +47,7 @@ const SlideProduct = ({ product }) => {
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode,Thumbs]}>
                   {
-                     product.imageUrl.map((item, i) => <SwiperSlide key={i}>
+                     product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
                         <a href="../img/products/single.png" className="product-slide__item">
                            <img src={item} alt="" />
                         </a>

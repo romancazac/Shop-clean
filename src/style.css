@@ -2427,7 +2427,7 @@ body.popup-show::after {
   margin: 0 0 0.9375rem 0;
 }
 .product-info__links {
-  margin: 0 0 0.9375rem 0;
+ gap: 15px;
   display: flex;
   align-items: center;
 }
@@ -4335,4 +4335,13 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
 }
 .lg-medium-zoom .lg-outer.lg-grabbing img.lg-object {
   cursor: zoom-out;
+}
+.spinner {
+  width: 100%;
+  padding: 50px 0;
+}
+.spinner__gif{
+  display: block;
+  max-width: 80px;
+  margin: 0 auto;
 }

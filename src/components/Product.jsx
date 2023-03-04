@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { addItems, setIsAdded } from '../redux/slices/cartSlice'
-import { addInWish } from '../redux/slices/wishSlice'
+
+
 import { removeInWish } from '../redux/slices/wishSlice'
+import { AddToCart } from './addToCart/AddToCart'
+import { AddToWishTtn } from './addToWishBtn/AddToWishTtn'
 
 const Product = ({ id, name, imageUrl, price, category, wish }) => {
    const dispatch = useDispatch();
    const { items } = useSelector(state => state.cart);
    const isMounted = useRef(false);
-   const [addedWish, setAddedWish] = useState(false);
+
 
    const obj = {
       id,
@@ -21,14 +23,7 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
       category
    }
 
-   const onAddItem = () => {
-      dispatch(addItems(obj))
-   }
 
-   const onAddWish = () => {
-      dispatch(addInWish(obj))
-      setAddedWish(true)
-   }
    const addedInCart = () => {
       const findProduct = items.some((obj) => obj.id === id);
       return findProduct
@@ -42,6 +37,7 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
       isMounted.current = true
    }, [items])
 
+ 
    return (
       <div className="product-shop__column">
 
@@ -60,7 +56,8 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
                !wish &&
                <div className="product-shop__action action-product">
                   <button className="action-product__item action-product__item_compare _active"></button>
-                  <button className={`action-product__item action-product__item_wish ${addedWish && "_active"}`} onClick={onAddWish}></button>
+                  {/* <button className={`action-product__item action-product__item_wish ${addedWish && "_active"}`} onClick={onAddWish}></button> */}
+                  <AddToWishTtn obj={obj}/>
                </div>
             }
 
@@ -72,12 +69,8 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
             </Link>
 
             <span className="product-shop__price">{price} MDL</span>
-            <button className={
-               `product-shop__add btn-block ${addedInCart() && '_added'}`
-            }
-               onClick={onAddItem}
-            ><span>В корзину</span>
-            </button>
+
+            <AddToCart added={addedInCart()} obj={obj} />
             {
                !wish &&
                <div className="product-shop__social">

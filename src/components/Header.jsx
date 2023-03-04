@@ -24,10 +24,8 @@ function Header({onSearch}) {
 
    const { totalPrice, totalCount } = useSelector(state => state.cart)
    const { countWish } = useSelector(state => state.wish)
-
    const [popUp, setPopUp] = React.useState(false);
 
-   console.log(isAuth)
    const handleSing = async (email, password) => {
 
       const  data  = await dispatch(
