@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Registration from "./components/Registration";
 import { fetchAuthMe } from './redux/slices/userSlice';
 import { Wish } from "./pages/Wish";
+import Compare from "./pages/Compare";
 
 
 function App() {
@@ -132,6 +133,7 @@ function App() {
         <Route path="/shop/:id" element={<ShopSingle />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/compare" element={<Compare/>} />
         <Route path="/wish" element={<Wish />} />
         <Route path="/Registration" element={<Registration />} />
       </Route >

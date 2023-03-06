@@ -1859,10 +1859,12 @@ body.popup-show::after {
 .shop .top-block__items {
   display: none;
 }
-
+.shop{
+  margin: 0 0 100px 0;
+}
 .shop__row {
   display: flex;
-   margin: 0 0 100px 0;
+  
 }
 @media (max-width: 47.99875em) {
   .shop__row {

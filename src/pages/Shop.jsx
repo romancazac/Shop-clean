@@ -136,7 +136,9 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) =>
                            :
 
                            list.map((item) =>
-                              <Product {...item} key={item.id} />
+                              <div className="product-shop__column">
+                                 <Product {...item} key={item.id} />
+                              </div>
                            )
 
                         }

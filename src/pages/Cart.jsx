@@ -5,17 +5,9 @@ import BreadCrumbs from '../components/BreadCrumbs'
 import ProductCart from '../components/cart/ProductCart'
 const Cart = () => {
 
-   const { items, totalPrice, totalCount } = useSelector(state => state.cart);
+   const { dataCart, totalPrice, totalCount } = useSelector(state => state.cart);
 
-const isMounted = useRef(false);
 
-useEffect(() => {
-   if(isMounted.current){
-      const json = JSON.stringify(items);
-      localStorage.setItem('cart', json)
-   }
-isMounted.current= true
-},[items])
 
    return (
       <div className="cart">
@@ -36,7 +28,7 @@ isMounted.current= true
 
                 
                   {
-                     items.map((item) =>
+                     dataCart.map((item) =>
 
                         <ProductCart {...item} key={item.id}/>
                      )

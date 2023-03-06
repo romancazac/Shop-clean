@@ -1,18 +1,24 @@
 
-import { useEffect, useRef, useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useAdded } from '../hooks/added.hook'
+import { removeInCompare } from '../redux/slices/compareSlice'
 
 
 
 import { removeInWish } from '../redux/slices/wishSlice'
 import { AddToCart } from './addToCart/AddToCart'
-import { AddToWishTtn } from './addToWishBtn/AddToWishTtn'
+import AddToCompare from './addToCompare/AddToCompare'
+import { AddToWishBtn } from './addToWishBtn/AddToWishBtn'
 
-const Product = ({ id, name, imageUrl, price, category, wish }) => {
+const Product = ({ id, name, imageUrl, price, category, wish,compare }) => {
    const dispatch = useDispatch();
-   const { items } = useSelector(state => state.cart);
-   const isMounted = useRef(false);
+   const { dataCart } = useSelector(state => state.cart);
+   const { items } = useSelector(state => state.wish);
+   const { dataCompare } = useSelector(state => state.compare);
+
+   const {onFind } = useAdded()
 
 
    const obj = {
@@ -24,40 +30,27 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
    }
 
 
-   const addedInCart = () => {
-      const findProduct = items.some((obj) => obj.id === id);
-      return findProduct
-   }
-
-   useEffect(() => {
-      if (isMounted.current) {
-         const json = JSON.stringify(items);
-         localStorage.setItem('cart', json)
-      }
-      isMounted.current = true
-   }, [items])
 
  
    return (
-      <div className="product-shop__column">
+      
 
          <article className="product-shop__items">
-            {wish &&
+            {(wish || compare) &&
                <button class="products-cart__delete block-products__delete"
-                  onClick={() => dispatch(removeInWish(id))}>
+                  onClick={() => `${wish ? dispatch(removeInWish(id)) : dispatch(removeInCompare(id)) }`}>
                   Удалить
                </button>
 
             }
             <Link to={`/shop/${id}`}>
-               <img src={!wish ? imageUrl[0] : imageUrl} alt={name} className="product-shop__img" />
+               <img src={!(wish || compare) ? imageUrl[0] : imageUrl} alt={name} className="product-shop__img" />
             </Link>
             {
-               !wish &&
+               !(wish || compare) &&
                <div className="product-shop__action action-product">
-                  <button className="action-product__item action-product__item_compare _active"></button>
-                  {/* <button className={`action-product__item action-product__item_wish ${addedWish && "_active"}`} onClick={onAddWish}></button> */}
-                  <AddToWishTtn obj={obj}/>
+                  <AddToCompare obj={obj} added={onFind(dataCompare, id)} />
+                  <AddToWishBtn obj={obj} added={onFind(items, id)}/>
                </div>
             }
 
@@ -69,10 +62,9 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
             </Link>
 
             <span className="product-shop__price">{price} MDL</span>
-
-            <AddToCart added={addedInCart()} obj={obj} />
+            <AddToCart added={onFind(dataCart, id)} obj={obj} />
             {
-               !wish &&
+               !(wish || compare) &&
                <div className="product-shop__social">
                   <span>Поделиться:</span>
                   <ul className="product-shop__socials socials">
@@ -85,7 +77,7 @@ const Product = ({ id, name, imageUrl, price, category, wish }) => {
             }
 
          </article>
-      </div>
+    
    )
 }
 

@@ -4,14 +4,15 @@ import products from './slices/productsSlice';
 import cart from './slices/cartSlice';
 import auth from './slices/userSlice';
 import wish  from './slices/wishSlice';
-
+import compare from './slices/compareSlice';
 export const store = configureStore({
   reducer: {
     filter,
     products,
     cart,
     auth,
-    wish
+    wish,
+    compare
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

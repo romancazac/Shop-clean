@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getWishFromLs } from "../../utils/getWishFromLs";
 
-const getWishFromLs = () => {
-   const items = localStorage.getItem("wish");
-   return items ? JSON.parse(items) : []
-}
-console.log(getWishFromLs())
+
+const {items,countWish} = getWishFromLs()
 const initialState = {
-   items: getWishFromLs(),
-   countWish:0
+   items,
+   countWish
 }
 export const wishSlice = createSlice({
    name: 'wish',
@@ -17,12 +15,12 @@ export const wishSlice = createSlice({
          const findItem = state.items.find((obj) => obj.id === action.payload.id);
          if (!findItem) {
             state.items.push({ ...action.payload })
-            state.countWish = state.items.length
+           state.countWish ++
          }
       },
       removeInWish(state, action) {
         state.items = state.items.filter((item) => item.id !== action.payload)
-       
+        state.countWish --
       }
 
    }

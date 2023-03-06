@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams, Navigate } from 'react-router-dom'
+import { Link, useNavigate, useParams} from 'react-router-dom'
 import { categories } from '../db'
 import { setCategoryId } from '../redux/slices/filterSlice';
 
@@ -22,32 +22,18 @@ function Header({onSearch}) {
    const push = useNavigate();
    const dispatch = useDispatch();
 
-   const { totalPrice, totalCount } = useSelector(state => state.cart)
-   const { countWish } = useSelector(state => state.wish)
+   const isMounted = useRef(false);
+   const isMountedW = useRef(false);
+   const isMountedC = useRef(false);
+
+   const { totalPrice, totalCount,dataCart } = useSelector(state => state.cart)
+   const { countWish, items} = useSelector(state => state.wish)
+   const { countCompare, dataCompare} = useSelector(state => state.compare)
    const [popUp, setPopUp] = React.useState(false);
 
    const handleSing = async (email, password) => {
 
-      const  data  = await dispatch(
-         fetchSingIn({
-            email,
-            password
-         })
-
-      )
-      
-      if(!data.payload){
-         return alert('Не удалось авторизоватся!')
-      }
-      if('accessToken' in data.payload){
-         window.localStorage.setItem('token', data.payload.accessToken)
-      }
-        
-         console.log(data.payload)
-     
-
-
-
+      dispatch( fetchSingIn({ email, password }))
    }
 
 
@@ -67,7 +53,7 @@ function Header({onSearch}) {
 
    }, [params]);
 
-   React.useEffect(() => {
+   useEffect(() => {
 
       if (isAuth) {
          setPopUp(false)
@@ -75,6 +61,28 @@ function Header({onSearch}) {
       }
    }, [isAuth]);
 
+
+   useEffect(() => {
+      if(isMounted.current){
+         const json = JSON.stringify(dataCart);
+         localStorage.setItem('cart', json)
+      }
+   isMounted.current= true
+   },[dataCart])
+   useEffect(() => {
+      if(isMountedW.current){
+         const json = JSON.stringify(items);
+         localStorage.setItem('wish', json)
+      }
+   isMountedW.current= true
+   },[items])
+   useEffect(() => {
+      if(isMountedC.current){
+         const json = JSON.stringify(dataCompare);
+         localStorage.setItem('compare', json)
+      }
+   isMountedC.current= true
+   },[dataCompare])
 
    return (
       <header className="header">
@@ -108,10 +116,10 @@ function Header({onSearch}) {
              
                   <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} setPopUp={setPopUp}/>
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
-                     <a href="compare.html" className="action__item">
+                     <Link to="/compare" className="action__item">
                         <img src={compare} alt="" />
-                        <span className="action__count">3</span>
-                     </a>
+                        <span className="action__count">{countCompare}</span>
+                     </Link>
                      <Link to="/wish" className="action__item">
                         <img src={wish} alt="" />
                         <span className="action__count">{countWish}</span>
