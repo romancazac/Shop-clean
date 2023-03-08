@@ -1,7 +1,7 @@
-import React, { useState,useEffect, useRef } from 'react'
+import React, { useState,useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams} from 'react-router-dom'
-import { categories } from '../db'
+import { Link,NavLink, useNavigate, useParams} from 'react-router-dom'
+
 import { setCategoryId } from '../redux/slices/filterSlice';
 
 import cart from '../asset/img/cart.svg';
@@ -11,8 +11,9 @@ import profile from '../asset/img/profile.svg';
 import LogIn from './LogIn';
 
 
-import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
+import { selectIsAuth } from '../redux/slices/userSlice';
 import SearchProduct from './searchProduct/SearchProduct';
+import { useLs } from '../hooks/saveInLocaleStorage.hook';
 
 
 
@@ -22,22 +23,18 @@ function Header({onSearch}) {
    const push = useNavigate();
    const dispatch = useDispatch();
 
-   const isMounted = useRef(false);
-   const isMountedW = useRef(false);
-   const isMountedC = useRef(false);
 
+   const {saveData, isMounted} = useLs()
    const { totalPrice, totalCount,dataCart } = useSelector(state => state.cart)
    const { countWish, items} = useSelector(state => state.wish)
    const { countCompare, dataCompare} = useSelector(state => state.compare)
-   const [popUp, setPopUp] = React.useState(false);
+   const { categories} = useSelector(state => state.categories)
 
-   const handleSing = async (email, password) => {
-
-      dispatch( fetchSingIn({ email, password }))
-   }
+   const [popUp, setPopUp] = useState(false);
+   
 
 
-   const onCategoryIndex = React.useCallback((id) => {
+   const onCategoryIndex = useCallback((id) => {
       dispatch(setCategoryId(id))
    });
 
@@ -62,26 +59,21 @@ function Header({onSearch}) {
    }, [isAuth]);
 
 
+
    useEffect(() => {
-      if(isMounted.current){
-         const json = JSON.stringify(dataCart);
-         localStorage.setItem('cart', json)
-      }
+
+    saveData(items, "wish")  
    isMounted.current= true
-   },[dataCart])
-   useEffect(() => {
-      if(isMountedW.current){
-         const json = JSON.stringify(items);
-         localStorage.setItem('wish', json)
-      }
-   isMountedW.current= true
    },[items])
    useEffect(() => {
-      if(isMountedC.current){
-         const json = JSON.stringify(dataCompare);
-         localStorage.setItem('compare', json)
-      }
-   isMountedC.current= true
+
+      saveData(dataCart, "cart")  
+     isMounted.current= true
+     },[dataCart])
+   useEffect(() => {
+      saveData(dataCompare, "compare")  
+      isMounted.current= true
+
    },[dataCompare])
 
    return (
@@ -105,30 +97,30 @@ function Header({onSearch}) {
                   {
                      isAuth ?
                         <Link to="/profile" className="action__item" >
-                           <img src={profile} alt="" />
+                           <img src={profile} alt="profile" />
                         </Link>
                         :
                         <button className="action__item" onClick={openPopUp}>
-                           <img src={profile} alt="" />
+                           <img src={profile} alt="profile" />
 
                         </button>
                   }
              
-                  <LogIn popUp={popUp} onClose={onClose} handleSing={handleSing} setPopUp={setPopUp}/>
+                  <LogIn popUp={popUp} onClose={onClose} setPopUp={setPopUp}/>
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <Link to="/compare" className="action__item">
-                        <img src={compare} alt="" />
+                        <img src={compare} alt="compare" />
                         <span className="action__count">{countCompare}</span>
                      </Link>
                      <Link to="/wish" className="action__item">
-                        <img src={wish} alt="" />
+                        <img src={wish} alt="wish" />
                         <span className="action__count">{countWish}</span>
                      </Link>
                   </div>
 
                   <Link to="/cart" className="action__item">
                      <div className="action__items">
-                        <img src={cart} alt="" />
+                        <img src={cart} alt="cart" />
                         <span className="action__count">{totalCount}</span>
                      </div>
                      <span className="action__total">{totalPrice} MDL</span>
@@ -156,7 +148,7 @@ function Header({onSearch}) {
                                           <Link to="/shop"
                                              className="category-header__item"
                                              key={item.id}
-                                             onClick={() => onCategoryIndex(item.id)}
+                                             onClick={() => onCategoryIndex(item.name)}
                                           >{item.name}</Link>
                                        )
                                     }
@@ -175,10 +167,10 @@ function Header({onSearch}) {
                            </button>
                         </div>
                         <ul className="nav__list">
-                           <li><Link to="/" className="nav__link _active">Главная</Link></li>
-                           <li><a href="about.html" className="nav__link">О нас</a></li>
-                           <li><Link to="/shop" className="nav__link">Магазин</Link></li>
-                           <li><a href="services.html" className="nav__link">Услуги</a></li>
+                           <li><NavLink to="/" className="nav__link ">Главная</NavLink></li>
+                           <li><NavLink to="/about" className="nav__link">О нас</NavLink></li>
+                           <li><NavLink to="/shop" className="nav__link">Магазин</NavLink></li>
+                           <li><NavLink to="/services" className="nav__link">Услуги</NavLink></li>
                            <li><a href="news.html" className="nav__link">Новости</a></li>
                            <li><a href="contacts.html" className="nav__link">Контакты</a></li>
                         </ul>

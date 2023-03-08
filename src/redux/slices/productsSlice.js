@@ -6,8 +6,8 @@ import { BASE_URL } from "../../constants";
 export const fetchProducts = createAsyncThunk(
    'products/fetchProductstatus',
    async (params) => {
-      const { category, sort,  search,  page } = params; 
-      const  response  = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}`)
+      const { category, sort,  search,  page, brands } = params; 
+      const  response  = await axios.get(`${BASE_URL}/products?${page}${category}${sort}${search}${brands}`)
       const totalCount = response.headers['x-total-count'];
 
 

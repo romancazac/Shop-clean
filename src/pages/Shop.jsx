@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { memo } from 'react'
+
 
 import { useSelector } from 'react-redux'
+import BrandFilter from '../components/brandFilter/BrandFilter'
 
 import BreadCrumbs from '../components/BreadCrumbs'
 import Categories from '../components/Categories'
@@ -11,7 +12,7 @@ import Product from '../components/Product'
 import RangeSlider from '../components/sliderRange/SliderRange'
 import Sort from '../components/Sort'
 import { Spinner } from '../components/spinner/Spinner'
-import { categories } from '../db'
+
 
 
 
@@ -19,8 +20,10 @@ import { categories } from '../db'
 const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) => {
    const [grid, setGrid] = useState("grid-5")
    const { products, status } = useSelector(state => state.products)
+   const { categories } = useSelector(state => state.categories)
    const { limitPage } = useSelector(state => state.filter)
    const numberPage = [10, 20, 25, 30];
+
    const [selectedPrice, setSelectedPrice] = React.useState([0, 5000]);
    const [list, setList] = React.useState(products);
 
@@ -81,27 +84,9 @@ const Shop = ({ onCategoryIndex, onPaginationPage, onLimitPage, onSortProp }) =>
                   </section>
                   <section className="aside__section aside-brand" >
                      <h3 className="aside__title">Фильтр по бренду:</h3>
-                     <div className="aside-brand__row">
-                        <img src="../img/brand1.png" alt="" className="aside-brand__logo" />
-                        <a href="#" className="aside-brand__name">Domestos</a>
-                        <span className="aside-brand__count">
-                           2
-                        </span>
-                     </div>
-                     <div className="aside-brand__row">
-                        <img src="../img/brand2.png" alt="" className="aside-brand__logo" />
-                        <a href="#" className="aside-brand__name">Kolin’s</a>
-                        <span className="aside-brand__count">
-                           3
-                        </span>
-                     </div>
-                     <div className="aside-brand__row">
-                        <img src="../img/brand3.png" alt="" className="aside-brand__logo" />
-                        <a href="#" className="aside-brand__name">Cif</a>
-                        <span className="aside-brand__count">
-                           4
-                        </span>
-                     </div>
+
+                     <BrandFilter/>
+              
                   </section>
                </aside>
                <div className="shop__content">

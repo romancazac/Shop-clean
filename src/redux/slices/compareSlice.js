@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { getCompareFromLs } from "../../utils/getCompareFromLs";
 
 const {dataCompare,countCompare} = getCompareFromLs()
-console.log(getCompareFromLs())
+
 const initialState = {
     dataCompare,
     countCompare

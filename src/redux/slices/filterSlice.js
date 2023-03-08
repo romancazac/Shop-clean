@@ -5,7 +5,8 @@ const initialState = {
    paginationPage:1,
    limitPage:10,
    sortActive:['rating'],
-   searchProduct:""
+   searchProduct:"",
+   brand:0
 
 
 }
@@ -31,13 +32,20 @@ export const filterSlice = createSlice({
       },
       setSearch(state,action) {
          state.searchProduct = action.payload;
+      },
+      setBrand(state, action) {
+         state.brand = action.payload
+      },
+
+      setReset(state) {
+         state.categoryId = "";
+         state.sortActive = ['rating'];
+         state.searchProduct = "";
+         state.brand = "";
       }
-      // setFilters(state, action) {
-      //    state.categoryId = Number(action.payload.categoryId);
-      // }
 
    }
 })
 
-export const { setCategoryId, setPaginationPage, setLimitPage, setSelectedPrice, setSortActive, setFilters,setSearch } = filterSlice.actions;
+export const { setCategoryId, setPaginationPage, setLimitPage, setSelectedPrice, setSortActive, setFilters,setSearch,setBrand,setReset } = filterSlice.actions;
 export default filterSlice.reducer

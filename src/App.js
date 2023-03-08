@@ -19,6 +19,8 @@ import Registration from "./components/Registration";
 import { fetchAuthMe } from './redux/slices/userSlice';
 import { Wish } from "./pages/Wish";
 import Compare from "./pages/Compare";
+import About from "./pages/About";
+import Services from "./pages/Services";
 
 
 function App() {
@@ -30,27 +32,25 @@ function App() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { categoryId, limitPage, sortActive, searchProduct, paginationPage } = useSelector(state => state.filter)
+  const { categoryId, limitPage, sortActive, searchProduct, paginationPage,brand } = useSelector(state => state.filter)
 
 
 
 
-  const category = `${categoryId !== '' ? `&category=${categoryId}` : ''}`;
+  const category = categoryId !== '' ? `&category=${categoryId}` : '';
+  const brands = brand ? `&brand=${brand}` : '';
   const page = `_page=${paginationPage}&_limit=${limitPage}`;
-  const sort = `&sortby=${sortActive}`;
-  const search = `${category}&q=${searchProduct}`;
+  const sort = sortActive ? `&_sort=${sortActive}` : '';
+  const search = searchProduct ? `&q=${searchProduct}` : '';
   const getProducts = () => {
     dispatch(fetchProducts({
       category,
       page,
       sort,
-      search
-    }
-
-
-    ))
-
-  }
+      search,
+      brands
+    }));
+  };
 
 
   const onCategoryIndex = useCallback((id) => {
@@ -131,6 +131,8 @@ function App() {
 
         </Route >
         <Route path="/shop/:id" element={<ShopSingle />} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/services" element={<Services/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/compare" element={<Compare/>} />

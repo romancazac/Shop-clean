@@ -887,6 +887,7 @@ body.popup-show::after {
   font-weight: 300;
   font-size: 15px;
   line-height: 17px;
+  width: 140px;
   height: 100%;
   cursor: pointer;
   padding: 0.3125rem;
@@ -1099,7 +1100,7 @@ body.popup-show::after {
     font-size: 1.25rem;
   }
 }
-.nav__link._active {
+.nav__link.active {
   color: #01AEF0;
 }
 .nav__link:hover {
@@ -1859,7 +1860,7 @@ body.popup-show::after {
 .shop .top-block__items {
   display: none;
 }
-.shop{
+main{
   margin: 0 0 100px 0;
 }
 .shop__row {
@@ -1930,6 +1931,8 @@ body.popup-show::after {
   display: flex;
   align-items: center;
   margin: 0 0 0.625rem 0;
+  width: 100%;
+  text-align: left;
 }
 .aside-brand__row:last-child {
   margin: 0;

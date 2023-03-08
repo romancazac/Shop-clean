@@ -13,10 +13,10 @@ const ShopSingle = () => {
 
   const {id} = useParams();
   const [product, setProduct] = React.useState([]);
-  const {items} = useSelector(state => state.cart)
+  const {dataCart} = useSelector(state => state.cart)
 
   const countFind = () => {
-    const find = items.find((obj) => obj.id == id);
+    const find = dataCart.find((obj) => obj.id == id);
     return find?.count
   }
 

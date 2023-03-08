@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
+import Light from './light/Light';
 
 const SlideProduct = ({ product }) => {
 
@@ -28,6 +29,7 @@ const SlideProduct = ({ product }) => {
                   {
                      product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
                         <div className="nav-slide__item ">
+                           
                            <img src={item} alt="" />
                         </div>
                      </SwiperSlide>
@@ -48,9 +50,11 @@ const SlideProduct = ({ product }) => {
                   modules={[FreeMode,Thumbs]}>
                   {
                      product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
-                        <a href="../img/products/single.png" className="product-slide__item">
-                           <img src={item} alt="" />
+                        <Light>
+                        <a href={item} className="product-slide__item">
+                           <img src={item} alt="img" />
                         </a>
+                        </Light>
                      </SwiperSlide>
                      )
                   }
