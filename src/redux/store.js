@@ -6,6 +6,7 @@ import auth from './slices/userSlice';
 import wish  from './slices/wishSlice';
 import compare from './slices/compareSlice';
 import categories from './slices/categoriSlice';
+import popup from './slices/popupSlice';
 export const store = configureStore({
   reducer: {
     filter,
@@ -14,7 +15,8 @@ export const store = configureStore({
     auth,
     wish,
     compare,
-    categories
+    categories,
+    popup
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

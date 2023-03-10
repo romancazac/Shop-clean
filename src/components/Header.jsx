@@ -14,6 +14,7 @@ import LogIn from './LogIn';
 import { selectIsAuth } from '../redux/slices/userSlice';
 import SearchProduct from './searchProduct/SearchProduct';
 import { useLs } from '../hooks/saveInLocaleStorage.hook';
+import { setPopup } from '../redux/slices/popupSlice';
 
 
 
@@ -30,30 +31,15 @@ function Header({onSearch}) {
    const { countCompare, dataCompare} = useSelector(state => state.compare)
    const { categories} = useSelector(state => state.categories)
 
-   const [popUp, setPopUp] = useState(false);
-   
-
 
    const onCategoryIndex = useCallback((id) => {
       dispatch(setCategoryId(id))
    });
 
-   const openPopUp = () => {
-      setPopUp(true)
-   }
-   const onClose = () => {
-      setPopUp(false)
-   }
-   React.useEffect(() => {
-      setPopUp(false)
-
-
-   }, [params]);
-
    useEffect(() => {
 
       if (isAuth) {
-         setPopUp(false)
+         dispatch(setPopup(""))
          push('/profile')
       }
    }, [isAuth]);
@@ -100,13 +86,13 @@ function Header({onSearch}) {
                            <img src={profile} alt="profile" />
                         </Link>
                         :
-                        <button className="action__item" onClick={openPopUp}>
+                        <button className="action__item" onClick={() => dispatch(setPopup("user"))}>
                            <img src={profile} alt="profile" />
 
                         </button>
                   }
              
-                  <LogIn popUp={popUp} onClose={onClose} setPopUp={setPopUp}/>
+                  <LogIn />
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <Link to="/compare" className="action__item">
                         <img src={compare} alt="compare" />

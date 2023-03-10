@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingIn, selectIsAuth } from '../redux/slices/userSlice';
+
+import Popup from './popup/Popup';
 const LogIn = ({ popUp, onClose, setPopUp }) => {
 
    const dispatch = useDispatch();
@@ -19,14 +21,6 @@ const LogIn = ({ popUp, onClose, setPopUp }) => {
       dispatch(fetchSingIn({ username, password }));
       
    };
-   useEffect(() => {
-
-      if (isAuth) {
-         setPopUp(false)
-         push('/profile')
-      }
-   }, [isAuth]);
-
 
 
    useEffect(() => {
@@ -35,17 +29,10 @@ const LogIn = ({ popUp, onClose, setPopUp }) => {
 
       }
    }, [token])
-   useEffect(() => {
-      if (error) {
-         setPopUp(true)
 
-      }
-   }, [error])
    return (
-      <div id="user" className={popUp ? "popup popup_show" : "popup"}>
-         <div className="popup__wrapper">
-            <div className="popup__content">
-               <button data-close type="button" className="popup__close" onClick={onClose}></button>
+         <Popup id={"user"}>
+               
                <div className="form__form contact-form">
 
                   <div className="contact-form__row">
@@ -88,9 +75,7 @@ const LogIn = ({ popUp, onClose, setPopUp }) => {
                   </div>
 
                </div>
-            </div>
-         </div>
-      </div>
+               </Popup>
    )
 }
 

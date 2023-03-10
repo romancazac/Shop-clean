@@ -8,6 +8,10 @@ const {request,error} = useHttp()
     const getCategories =  () => {      
         return request(`${BASE_URL}/categories`)   
     }
+    const postComands =  (data) => {   
+        console.log(data)   
+        return request(`${BASE_URL}/comands`,'POST',data)   
+    }
 
-    return {getCategories,error}
+    return {getCategories,error,postComands}
 }

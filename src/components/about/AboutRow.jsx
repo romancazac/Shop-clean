@@ -10,7 +10,7 @@ export const AboutRow = ({ title, text, img }) => {
 
          </div>
          <div className="about__column about__img-ibg_contain">
-            <img src={img} alt={title} />
+            <img src={img} alt="about" />
 
          </div>
       </div>

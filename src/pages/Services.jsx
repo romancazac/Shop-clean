@@ -65,6 +65,7 @@ const Services = () => {
 							<CalculatorServices
 								title='Рассчитайте стоимость, указав длину и ширину, или сразу площадь:'
 								price={30}
+								formId={"services1"}
 							/>
 						</div>
 						<GallerySlide/>
@@ -83,6 +84,7 @@ const Services = () => {
 							<CalculatorServices
 								title='Рассчитайте стоимость, указав длину и ширину, или сразу площадь:'
 								price={50}
+								formId={"services2"}
 							/>
 						</div>
 						<GallerySlide/>

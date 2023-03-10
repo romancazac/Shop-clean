@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { setPopup } from '../../redux/slices/popupSlice';
+import ComandForm from '../comandForm/ComandForm';
 
-export const CalculatorServices = ({ title, price }) => {
+export const CalculatorServices = ({ title, price,formId }) => {
+   const dispatch  = useDispatch()
    const [lenght, setLenght] = useState(0);
    const [width, setWidth] = useState(0);
    const [area, setArea] = useState(0);
@@ -51,8 +55,10 @@ export const CalculatorServices = ({ title, price }) => {
                </div>
             </form>
 
-            <button className="btn-block" type="button" data-popup="#comand-services">
+            <button className="btn-block" type="button" onClick={() => dispatch(setPopup(formId))} >
                Заказать услугу</button>
+
+             <ComandForm area={area} id={formId}/>  
          </div>
       </div>
    )
