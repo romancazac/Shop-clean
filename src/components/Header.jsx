@@ -1,6 +1,6 @@
 import React, { useState,useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link,NavLink, useNavigate, useParams} from 'react-router-dom'
+import { Link,useNavigate, useParams} from 'react-router-dom'
 
 import { setCategoryId } from '../redux/slices/filterSlice';
 
@@ -15,7 +15,8 @@ import { selectIsAuth } from '../redux/slices/userSlice';
 import SearchProduct from './searchProduct/SearchProduct';
 import { useLs } from '../hooks/saveInLocaleStorage.hook';
 import { setPopup } from '../redux/slices/popupSlice';
-
+import { NavList } from './navList/NavList';
+import logo from "../asset/img/logo.png"
 
 
 function Header({onSearch}) {
@@ -75,7 +76,7 @@ function Header({onSearch}) {
          </div>
          <div className="header__container">
             <div className="header__body">
-               <a href="index.html" className="header__logo"><img src="../img/logo.png" alt="" /></a>
+               <a href="index.html" className="header__logo"><img src={logo} alt="logo" /></a>
                <div className="header__search search" data-da="header__bottom-m,0,767">
                   <SearchProduct onSearch={onSearch}/>
                </div>
@@ -145,26 +146,7 @@ function Header({onSearch}) {
                         }
                      </ul>
                   </div>
-                  <div className="header__nav nav">
-                     <nav className="nav__menu">
-                        <div className="nav__nav-close">
-                           <button className="nav__nav-close-btn">
-                              <span></span>
-                           </button>
-                        </div>
-                        <ul className="nav__list">
-                           <li><NavLink to="/" className="nav__link ">Главная</NavLink></li>
-                           <li><NavLink to="/about" className="nav__link">О нас</NavLink></li>
-                           <li><NavLink to="/shop" className="nav__link">Магазин</NavLink></li>
-                           <li><NavLink to="/services" className="nav__link">Услуги</NavLink></li>
-                           <li><a href="news.html" className="nav__link">Новости</a></li>
-                           <li><a href="contacts.html" className="nav__link">Контакты</a></li>
-                        </ul>
-                     </nav>
-                     <button className="nav__burger icon-menu">
-                        <span></span>
-                     </button>
-                  </div>
+                   <NavList/>     
                   <div className="header__lg">
                      <select >
                         <option value="RO">RO </option>

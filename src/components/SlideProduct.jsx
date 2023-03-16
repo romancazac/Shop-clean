@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper';
 import Light from './light/Light';
 
-const SlideProduct = ({ product }) => {
+const SlideProduct = ({ data, vertical="vertical" }) => {
 
    const [thumbsSwiper, setThumbsSwiper] = React.useState(null);
    const thumbsParams = {
@@ -12,7 +12,7 @@ const SlideProduct = ({ product }) => {
       onSwiper:setThumbsSwiper,
       slidesPerView:3,
       freeMode:true,
-      direction:"vertical",
+      direction:vertical,
       watchOverflow: true,
       navigation:true,
       navigation: {
@@ -27,7 +27,7 @@ const SlideProduct = ({ product }) => {
             <div className="nav-slide__items gallery-thumbs">
                <Swiper {...thumbsParams}>
                   {
-                     product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
+                     data?.map((item, i) => <SwiperSlide key={i}>
                         <div className="nav-slide__item ">
                            
                            <img src={item} alt="" />
@@ -49,7 +49,7 @@ const SlideProduct = ({ product }) => {
                   thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                   modules={[FreeMode,Thumbs]}>
                   {
-                     product?.imageUrl?.map((item, i) => <SwiperSlide key={i}>
+                     data?.map((item, i) => <SwiperSlide key={i}>
                         <Light>
                         <a href={item} className="product-slide__item">
                            <img src={item} alt="img" />

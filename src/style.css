@@ -688,6 +688,9 @@ body.popup-show::after {
 .popup .contact-form__input {
   height: 50px;
 }
+.popup .contact-form__input.red {
+  border-color: red ;
+}
 
 .popup_show {
   z-index: 150;
@@ -1101,7 +1104,7 @@ body.popup-show::after {
   }
 }
 .nav__link.active {
-  color: #01AEF0;
+  color: #01AEF0 !important;
 }
 .nav__link:hover {
   color: #01AEF0;

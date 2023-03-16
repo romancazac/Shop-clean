@@ -27,6 +27,7 @@ function SearchProduct({onSearch}) {
         className="search__inp"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        required
       />
       <select name="#" id="#" className="search__cat" onChange={(e) => setCategory(e.target.value)}>
         <option value="">Все категории</option>

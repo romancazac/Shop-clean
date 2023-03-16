@@ -1,28 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+
 import { BASE_URL } from '../../constants';
 
 
-// create user
-export const fetchUser = createAsyncThunk(
-    'user/fetchUserstatus',
-    async (params) => {
-        const auth = getAuth();
-        const { email, password } = params;
-        const { user } = await createUserWithEmailAndPassword(auth, email, password);
-        // const {user} = await signInWithEmailAndPassword(auth, email, password);
-        return user
 
-
-
-    }
-)
 // sing in
 export const fetchSingIn = createAsyncThunk(
     'user/fetchSingInstatus',
-    async ({username, password}) => {
-      const { data } = await axios.post(`${BASE_URL}/login`, {
+    async (params) => {
+      const {username, password} = params
+      const { data} = await axios.post(`${BASE_URL}/login`, {
         username,
         password
       }, {
@@ -36,6 +24,7 @@ export const fetchSingIn = createAsyncThunk(
 
     
 )
+// /auth
 export const fetchAuthMe = createAsyncThunk(
     'user/fetchAuthMestatus',
     async (token) => {
@@ -46,9 +35,28 @@ export const fetchAuthMe = createAsyncThunk(
         })
        
         return data
-
-
     }
+)
+// registration
+export const fetchRegistration = createAsyncThunk(
+    'user/fetchRegistrationMestatus',
+    async (data) => {
+     const {email,password,phone,username} = data;
+        const { res} = await axios.post(`${BASE_URL}/register`, {
+          email,
+          password,
+          phone,
+          username
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        return res;
+      }
+
+
+    
 )
 
 const userSlice = createSlice({
@@ -60,20 +68,6 @@ const userSlice = createSlice({
       error: null
     },
     reducers: {
-      loginSuccess: (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.loading = false;
-      }, 
-      registerStart: (state) => {
-        state.loading = true;
-        state.error = null;
-      },
-      registerSuccess: (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.loading = false;
-      },
 
       logout: (state) => {
         state.user = null;
@@ -104,11 +98,28 @@ const userSlice = createSlice({
         state.loading = true;
       },
       [fetchSingIn.fulfilled]: (state, action) => {
+        console.log(action)
         state.user = action.payload;
         state.token = action.payload.token;
         state.loading = false;
       },
       [fetchSingIn.rejected]: (state) => {
+        state.loading = false;
+        state.error = true;
+    
+      },
+      // registration
+      [fetchRegistration.pending]: (state) => {
+        state.user = ''
+        state.token = ''
+        state.loading = true;
+      },
+      [fetchRegistration.fulfilled]: (state, action) => {
+        state.user = action.payload;
+        state.token = action.payload.token;
+        state.loading = false;
+      },
+      [fetchRegistration.rejected]: (state) => {
         state.loading = false;
         state.error = true;
     

@@ -12,7 +12,7 @@ import { AddToCart } from './addToCart/AddToCart'
 import AddToCompare from './addToCompare/AddToCompare'
 import { AddToWishBtn } from './addToWishBtn/AddToWishBtn'
 
-const Product = ({ id, name, imageUrl, price, category, wish,compare }) => {
+const Product = ({ id, name, imageUrl, price, category,brand, wish,compare }) => {
    const dispatch = useDispatch();
    const { dataCart } = useSelector(state => state.cart);
    const { items } = useSelector(state => state.wish);
@@ -26,7 +26,8 @@ const Product = ({ id, name, imageUrl, price, category, wish,compare }) => {
       name,
       imageUrl: imageUrl[0],
       price,
-      category
+      category,
+      brand
    }
 
 

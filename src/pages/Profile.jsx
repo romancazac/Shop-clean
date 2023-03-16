@@ -20,8 +20,8 @@ const Profile = () => {
                <div className="about__column">
                   <h2 className="section__title">ЗДРАВСТВУЙТЕ, {user?.username}</h2>
                   <h3 className="section__subtitle">ФИЗИЧЕСКОЕ ЛИЦО</h3>
-                  <p className="section__text">{user?.username}</p>
-                  <p className="section__text">+380 (74) 690-46-33</p>
+                  <p className="section__text">{user?.email}</p>
+                  <p className="section__text">{user?.phone}</p>
                   <ul className="profile__links">
                      <li><a href="edit-profile.html" className="profile__edit btn-block">РЕДАКТИРОВАТЬ ПРОФИЛЬ</a></li>
                      <li><button onClick={onOut} className="section__link news__link">Выйти из профиля</button></li>

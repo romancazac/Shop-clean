@@ -28,12 +28,10 @@ const Cart = () => {
 
                 
                   {
+                     dataCart.length <= 0 ? "Nu sunt produse in cos" :
                      dataCart.map((item) =>
-
                         <ProductCart {...item} key={item.id}/>
-                     )
-                     
-                     
+                     )                  
                   }
 
 

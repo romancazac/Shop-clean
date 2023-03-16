@@ -42,7 +42,7 @@ const ShopSingle = () => {
     <div className="shop__container">
       <div className="shop__product product">
         <div className="product__row">
-          <SlideProduct product={product}/>
+          <SlideProduct data={product?.imageUrl}/>
     
           <div className="product__column product-info">
 

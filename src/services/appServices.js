@@ -4,14 +4,21 @@ import { useHttp } from "../hooks/http.hook"
 export const useAppServices = () => {
 
 
-const {request,error} = useHttp()
-    const getCategories =  () => {      
-        return request(`${BASE_URL}/categories`)   
+const {request,error,loading,succes} = useHttp()
+ 
+    const postComands =  (body) => {   
+        return request(`${BASE_URL}/comands`,"POST",body)   
     }
-    const postComands =  (data) => {   
-        console.log(data)   
-        return request(`${BASE_URL}/comands`,'POST',data)   
+    const postMessageContacts = (body) => {
+        return request(`${BASE_URL}/messages`,"POST",body)   
     }
 
-    return {getCategories,error,postComands}
+    const getNews = () => {
+        return request(`${BASE_URL}/news`)
+    }
+    const getNew = (id) => {
+        return request(`${BASE_URL}/news/${id}`)
+    }
+
+    return {error,loading,succes,postComands,getNews,getNew,postMessageContacts}
 }

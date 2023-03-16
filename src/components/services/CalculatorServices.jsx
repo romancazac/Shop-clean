@@ -2,23 +2,27 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setPopup } from '../../redux/slices/popupSlice';
-import ComandForm from '../comandForm/ComandForm';
 
-export const CalculatorServices = ({ title, price,formId }) => {
+
+export const CalculatorServices = ({ title, price,onFormData}) => {
    const dispatch  = useDispatch()
    const [lenght, setLenght] = useState(0);
    const [width, setWidth] = useState(0);
    const [area, setArea] = useState(0);
    useEffect(() => {
-      setArea(lenght * width)
-   }, [lenght, width])
+      setArea(lenght * width);
+      onFormData({
+         title:title,
+         area:area
+      }) 
+   }, [lenght, width,area])
    return (
       <div className="service-item">
          <div className="service-item_price">
             Цена: <span><span>{price}</span> MDL/m²</span>
          </div>
          <div className="service-item_data ">
-            <form className="service-item__form">
+            <div className="service-item__form">
                <h4 className="service-item__title">{title}</h4>
                <div className="service-item__row">
                   <div className="fields-two service-calc-field ">
@@ -53,12 +57,10 @@ export const CalculatorServices = ({ title, price,formId }) => {
                <div className="service-item_result">
                   Стоимость: <span>от <span>  {(price * area) || 0}  </span> MDL</span>
                </div>
-            </form>
+            </div>
 
-            <button className="btn-block" type="button" onClick={() => dispatch(setPopup(formId))} >
-               Заказать услугу</button>
-
-             <ComandForm area={area} id={formId}/>  
+            <button className="btn-block" type="button" onClick={() => dispatch(setPopup("services1"))} >
+               Заказать услугу</button>  
          </div>
       </div>
    )
