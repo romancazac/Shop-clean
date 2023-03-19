@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-export const NavList = () => {
+export const NavList = ({onBurger}) => {
    return (
       <div className="header__nav nav">
       <nav className="nav__menu">
          <div className="nav__nav-close">
-            <button className="nav__nav-close-btn">
+            <button className="nav__nav-close-btn" onClick={onBurger}>
                <span></span>
             </button>
          </div>
@@ -18,7 +18,7 @@ export const NavList = () => {
             <li><NavLink to="/contacts" className="nav__link">Контакты</NavLink></li>
          </ul>
       </nav>
-      <button className="nav__burger icon-menu">
+      <button className="nav__burger icon-menu" onClick={onBurger}>
          <span></span>
       </button>
    </div>

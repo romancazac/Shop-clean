@@ -7,10 +7,16 @@ import about from "../asset/img/about/01.png";
 import about2 from "../asset/img/about/02.png";
 import posterVideo from "../asset/img/products/video.png"
 import { Parteners } from '../components/about/Parteners';
+import { Helmet } from 'react-helmet';
 
 const About = () => {
     return (
         <>
+            
+            <Helmet>
+                <title>О нас</title>
+                <meta name="description" content="Shop aplication" />
+            </Helmet>
             <BreadCrumbs title="О нас" />
             <section className="section about">
                 <div className="about__container">
@@ -45,7 +51,7 @@ const About = () => {
                     </div>
                     <div className="about__bg">
                         <div className="about__container">
-                            <Parteners/>
+                            <Parteners />
                         </div>
                     </div>
                 </div>

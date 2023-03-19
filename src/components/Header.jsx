@@ -1,8 +1,6 @@
-import React, { useState,useEffect, useCallback } from 'react'
+import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link,useNavigate, useParams} from 'react-router-dom'
-
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { Link,useNavigate} from 'react-router-dom'
 
 import cart from '../asset/img/cart.svg';
 import wish from '../asset/img/wish.svg';
@@ -17,11 +15,11 @@ import { useLs } from '../hooks/saveInLocaleStorage.hook';
 import { setPopup } from '../redux/slices/popupSlice';
 import { NavList } from './navList/NavList';
 import logo from "../asset/img/logo.png"
+import { HeaderCategories } from './headerCategories/HeaderCategories';
 
 
-function Header({onSearch}) {
+function Header({onSearch,onBurger}) {
    const isAuth = useSelector(selectIsAuth)
-   const params = useParams();
    const push = useNavigate();
    const dispatch = useDispatch();
 
@@ -30,13 +28,7 @@ function Header({onSearch}) {
    const { totalPrice, totalCount,dataCart } = useSelector(state => state.cart)
    const { countWish, items} = useSelector(state => state.wish)
    const { countCompare, dataCompare} = useSelector(state => state.compare)
-   const { categories} = useSelector(state => state.categories)
-
-
-   const onCategoryIndex = useCallback((id) => {
-      dispatch(setCategoryId(id))
-   });
-
+  
    useEffect(() => {
 
       if (isAuth) {
@@ -76,7 +68,7 @@ function Header({onSearch}) {
          </div>
          <div className="header__container">
             <div className="header__body">
-               <a href="index.html" className="header__logo"><img src={logo} alt="logo" /></a>
+               <Link to="/" className="header__logo"><img src={logo} alt="logo" /></Link>
                <div className="header__search search" data-da="header__bottom-m,0,767">
                   <SearchProduct onSearch={onSearch}/>
                </div>
@@ -119,34 +111,8 @@ function Header({onSearch}) {
          <div className="header__bottom">
             <div className="header__container header__bottom-m">
                <div className="header__body header-bottom">
-                  <div className="header-bottom__category category-header" data-da="nav__menu,1,767" data-spollers="767,max" >
-                     <button className="category-header__btn" data-spoller><span>Категории</span></button>
-                     <ul className="category-header__cat" data-spollers="992,max" data-one-spoller>
-
-
-                        {
-                           categories.map((item) =>
-                              <li className="category-header__li" key={item.id}>
-                                 <a href="#" className="category-header__item">{item.name}</a>
-                                 <button className="category-header__btn-arr" data-spoller ></button>
-                                 <div className="category-header__subcat">
-                                    {
-                                       item.subcategory.map((item) =>
-                                          <Link to="/shop"
-                                             className="category-header__item"
-                                             key={item.id}
-                                             onClick={() => onCategoryIndex(item.name)}
-                                          >{item.name}</Link>
-                                       )
-                                    }
-                                 </div>
-                              </li>
-
-                           )
-                        }
-                     </ul>
-                  </div>
-                   <NavList/>     
+                   <HeaderCategories/>  
+                   <NavList onBurger={onBurger}/>     
                   <div className="header__lg">
                      <select >
                         <option value="RO">RO </option>

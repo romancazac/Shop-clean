@@ -3,9 +3,15 @@ import BreadCrumbs from '../components/BreadCrumbs'
 import bgC from '../asset/img/contacts/bg-form.png';
 import imgA from '../asset/img/contacts-img.png';
 import { FormContacts } from '../components/contacts/FormContacts';
+import { Helmet } from 'react-helmet';
 export const Contacts = () => {
    return (
       <>
+     
+          <Helmet>
+            <title>Контакты</title>
+            <meta name="description" content="Shop aplication" />
+         </Helmet>
          <BreadCrumbs title="Контакты "/>
          <section className="section  contact">
             <div className="contactc__container about">

@@ -1,18 +1,16 @@
-import { useCallback, useState, useEffect, useRef } from "react";
-import QueryString from "qs";
+import { useCallback, useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import {  Route, Routes } from 'react-router-dom';
 
-import qs from 'qs';
 
-// import { data } from "./db";
+
 
 import MainLayout from "./layouts/MainLayout";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 
 import ShopSingle from "./pages/ShopSingle";
-import { setCategoryId, setLimitPage, setPaginationPage, setSelectedPrice, setSortActive, setFilters, setSearch } from "./redux/slices/filterSlice";
+import { setCategoryId, setLimitPage, setPaginationPage, setSortActive,setSearch } from "./redux/slices/filterSlice";
 import { fetchProducts } from './redux/slices/productsSlice'
 import Profile from "./pages/Profile";
 import Registration from "./components/Registration";
@@ -30,9 +28,6 @@ import { Contacts } from "./pages/Contacts";
 
 function App() {
 
-  // const navigate = useNavigate();
-  // const isSearch = React.useRef(false);
-  // const isMounted = React.useRef(false);
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
@@ -71,7 +66,6 @@ function App() {
     dispatch(setSearch(''));
   });
   const onPaginationPage = useCallback((number) => {
-    console.log(number)
     dispatch(setPaginationPage(number))
   });
   const onLimitPage = useCallback((number) => {
@@ -81,10 +75,10 @@ function App() {
     dispatch(setSortActive(value))
 
   });
-  const onSearch = (name, cat) => {
+  const onSearch = useCallback((name, cat) => {
     dispatch(setSearch(name));
     dispatch(setCategoryId(cat))
-  }
+  });
 
 
   // verificăm dacă utilizatorul este autentificat pe baza token-ului din localStorage
@@ -96,33 +90,9 @@ function App() {
       }
     }
   }, [dispatch, user]);
-  // React.useEffect(() => {
-  //   if (isMounted.current) {
-  //     const queryString = qs.stringify({
-
-  //       categoryId
-
-  //     })
-  //     navigate(`shop/?${queryString}`);
-  //   }
-
-
-  //   isMounted.current = true;
-  // }, [categoryId]);
-
-  //   React.useEffect(() => {
-  //     if (window.location.search) {
-  //       const params = qs.parse(window.location.search.substring(1));
-  //       dispatch(setFilters({...params}))
-
-  //       isSearch.current = true;
-  //     }
-  //   }, []);
-
-
+ 
   useEffect(() => {
     getProducts()
-
   }, [onCategoryIndex, onPaginationPage, onLimitPage, onSortProp, onSearch]);
 
 

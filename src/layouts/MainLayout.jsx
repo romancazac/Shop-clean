@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 import { Outlet, useLocation} from 'react-router-dom'
@@ -8,11 +8,15 @@ import { HeaderHome } from '../components/headerHome/HeaderHome'
 
 const MainLayout = ({ onSearch}) => {
    const location = useLocation();
+   const [open, setOpen] = useState(false);
+   const onBurger = () => {
+      setOpen(!open)
+   }
    return (
-      <div className="wrapper">
+      <div className={`wrapper ${open ? "menu-open" : ''}`}>
          {location.pathname === '/' ?
-         <HeaderHome/> :
-         <Header  onSearch={onSearch}/>
+         <HeaderHome onBurger={onBurger}/> :
+         <Header  onBurger={onBurger} onSearch={onSearch}/>
       }     
          <main className="main">
             <Outlet/>           

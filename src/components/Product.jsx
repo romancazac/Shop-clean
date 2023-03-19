@@ -29,9 +29,6 @@ const Product = ({ id, name, imageUrl, price, category,brand, wish,compare }) =>
       category,
       brand
    }
-
-
-
  
    return (
       

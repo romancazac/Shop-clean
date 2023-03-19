@@ -1,11 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom'
 import BreadCrumbs from '../components/BreadCrumbs';
 import { NewsAside } from '../components/news/NewsAside';
 import { NewsSingleContent } from '../components/news/NewsSingleContent';
-import { Preloader } from '../components/preloader/Preloader';
 import { Spinner } from '../components/spinner/Spinner';
 import { useAppServices } from '../services/appServices';
 
@@ -27,7 +27,12 @@ export const NewsSingle = () => {
 
    return (
       <>
-         <BreadCrumbs title={newsSingle?.title}/>
+      
+         <Helmet>
+            <title>Новости - {newsSingle?.title}</title>
+            <meta name="description" content="Shop aplication" />
+         </Helmet>
+         <BreadCrumbs title={newsSingle?.title} />
          <div className="news">
             <div className="news__container">
                <h1 className="single-row__title">{newsSingle?.title}</h1>

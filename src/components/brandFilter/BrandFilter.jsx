@@ -12,35 +12,35 @@ function BrandFilter(props) {
     }
     const brands = [
         {
-            "id":0,
-            "name":"Domestos",
-            "imgUrl":brand1
+            "id": 0,
+            "name": "Domestos",
+            "imgUrl": brand1
         },
         {
-            "id":1,
-            "name":"Kolin's",
-            "imgUrl":brand2
+            "id": 1,
+            "name": "Kolin's",
+            "imgUrl": brand2
         },
         {
-            "id":2,
-            "name":"Cif",
-            "imgUrl":brand3
+            "id": 2,
+            "name": "Cif",
+            "imgUrl": brand3
         },
     ]
     return (
         <>
-        {
-            brands.map((brand) => 
-            <button className="aside-brand__row" onClick={() => onBrand(brand.name)}>
-                <img src={brand.imgUrl} alt={brand.name} className="aside-brand__logo" />
-                <span className="aside-brand__name">{brand.name}</span>
-                <span className="aside-brand__count">
-                2
-                </span>
-            </button>
-            )
-        }
-     </>
+            {
+                brands.map((brand) =>
+                    <button key={brand.id} className="aside-brand__row" onClick={() => onBrand(brand.name)}>
+                        <img src={brand.imgUrl} alt={brand.name} className="aside-brand__logo" />
+                        <span className="aside-brand__name">{brand.name}</span>
+                        <span className="aside-brand__count">
+                            2
+                        </span>
+                    </button>
+                )
+            }
+        </>
 
     );
 }

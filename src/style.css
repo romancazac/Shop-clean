@@ -1280,9 +1280,7 @@ body.popup-show::after {
 .action__item:hover {
   opacity: 0.7;
 }
-.action__item:last-child {
-  margin-right: 0;
-}
+
 .action__items {
   position: relative;
   margin-right: 0.625rem;

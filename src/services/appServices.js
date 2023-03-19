@@ -20,5 +20,9 @@ const {request,error,loading,succes} = useHttp()
         return request(`${BASE_URL}/news/${id}`)
     }
 
-    return {error,loading,succes,postComands,getNews,getNew,postMessageContacts}
+    const getProduct = (id) => {
+        return request(`${BASE_URL}/products/${id}`)
+    }
+
+    return {error,loading,succes,postComands,getNews,getNew,postMessageContacts,getProduct}
 }

@@ -5,6 +5,7 @@ import { GallerySlide } from '../components/services/GallerySlide';
 import ComandForm from '../components/comandForm/ComandForm';
 import BreadCrumbs from '../components/BreadCrumbs'
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 const Services = () => {
 	const [formData, setFormData] = useState({})
 
@@ -14,7 +15,11 @@ const Services = () => {
 
 	return (
 		<>
-
+		
+			<Helmet>
+				<title>Услуги</title>
+				<meta name="description" content="Shop aplication" />
+			</Helmet>
 			<BreadCrumbs title="Услуги" />
 			<section className="section services">
 				<div className="about__container ">
