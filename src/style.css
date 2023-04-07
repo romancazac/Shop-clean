@@ -791,8 +791,26 @@ body.popup-show::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
-@media (max-width: 47.99875em) {
+@media (max-width: 699px) {
+  .header__body {
+    flex-wrap: wrap;
+    gap: 10px;
+  
+  }
+  .header__body_top {
+
+    justify-content: center;
+  }
+  .search__form {
+    height: 30px !important;
+  }
+  .header-top{
+    display: none;
+  }
+}
+@media (max-width: 992px) {
   .header__body {
     padding: 10px 0;
   }
@@ -856,12 +874,18 @@ body.popup-show::after {
 .search {
   max-width: 600px;
   flex: 0 1 600px;
-  padding: 1.25rem 0;
+
   margin: 0 0.625rem;
+}
+@media (min-width: 992px) {
+  .search {
+    padding: 1.25rem 0;
+  }
+
 }
 @media (max-width: 47.99875em) {
   .search {
-    padding: 0.625rem 0;
+
     margin: 0;
     max-width: 100%;
     flex: 0 1 100%;
@@ -925,7 +949,7 @@ body.popup-show::after {
   visibility: visible;
   opacity: 1;
 }
-@media (min-width: 47.99875em) {
+@media (min-width: 992px) {
   .category-header__cat {
     position: absolute;
     top: 100%;
@@ -942,14 +966,14 @@ body.popup-show::after {
   position: relative;
   border-bottom: 1px solid #EAEAEA;
 }
-.category-header__li:hover .category-header__subcat {
-  visibility: visible;
-  opacity: 1;
+@media (min-width: 992px) {
+
 }
+
 .category-header__li:last-child {
   border-bottom: 0;
 }
-@media (min-width: 47.99875em) {
+@media (min-width: 992px) {
   .category-header__subcat {
     position: absolute;
     left: 100%;
@@ -958,6 +982,10 @@ body.popup-show::after {
     visibility: hidden;
     opacity: 0;
     width: 300px;
+  }
+  .category-header__li:hover .category-header__subcat {
+    visibility: visible;
+    opacity: 1;
   }
 }
 .category-header__item {
@@ -986,6 +1014,10 @@ body.popup-show::after {
   transform: rotate(-90deg);
   transition: all 0.2s;
 }
+.category-header__subcat{
+ transition: all 0.4s;
+ 
+}
 @media (max-width: 47.99875em) {
   .category-header__btn-arr {
     background-color: #F7F7F7;
@@ -993,10 +1025,24 @@ body.popup-show::after {
     height: 20px;
     top: 10px;
   }
+
+}
+@media(max-width:992px){
+  .category-header__subcat {
+    height: 0;
+    overflow: hidden;
+  }
+  .category-header__subcat.active {
+    height: auto;
+   
+  }
 }
 .category-header__btn-arr._spoller-active {
   transform: rotate(0);
 }
+.category-header__btn-arr._spoller-active + .category-header__subcat{
+  height: auto;
+} 
 
 .contacts__item_mail-w {
   background-image: url("./asset/img/sms-w.svg");
@@ -1006,21 +1052,20 @@ body.popup-show::after {
   background-position: left 3px !important;
 }
 
-.menu-open .nav__menu {
+.menu-open .nav{
   right: 0;
   visibility: visible;
 }
 
 .nav {
   margin: 0 0.9375rem;
-  display: flex;
-  align-items: center;
+
 }
-@media (max-width: 61.99875em) {
+@media(min-width:992px){
   .nav {
-    justify-content: flex-end;
-    align-items: flex-end;
-    flex: 1 1 auto;
+
+    display: flex;
+    align-items: center;
   }
 }
 @media (max-width: 47.99875em) {
@@ -1036,10 +1081,10 @@ body.popup-show::after {
   margin: 0 0 10px 0;
 }
 @media (max-width: 61.99875em) {
-  .nav__menu {
+  .nav {
     position: fixed;
     z-index: 10;
-    width: 240px;
+    width: 100%;
     height: 100%;
     top: 0;
     background-color: #fff;
@@ -1049,16 +1094,17 @@ body.popup-show::after {
     right: -100%;
     visibility: hidden;
     transition: all 0.2s;
+    margin: 0;
   }
 }
 @media (max-width: 47.99875em) {
-  .nav__menu {
+  .nav {
     width: 100%;
     padding: 50px 10px;
   }
 }
 @media (max-width: 600px) {
-  .nav__menu {
+  .nav {
     padding-top: 90px;
   }
 }
@@ -1196,7 +1242,7 @@ body.popup-show::after {
   color: #000;
 }
 
-@media (min-width: 47.99875em) {
+@media (min-width: 992px) {
   .category-header {
     margin-right: 2.5rem;
   }
@@ -1215,7 +1261,7 @@ body.popup-show::after {
   text-align: left;
   padding: 0 0.625rem;
 }
-@media (min-width: 47.99875em) {
+@media (min-width: 992px) {
   .category-header__btn {
     width: 260px;
   }
@@ -1260,11 +1306,7 @@ body.popup-show::after {
   display: flex;
   align-items: center;
 }
-@media (min-width: 47.99875em) {
-  .action__dynamic {
-    margin-right: 1.5625rem;
-  }
-}
+
 .action__item {
   position: relative;
   margin-right: 1.5625rem;
@@ -1346,6 +1388,12 @@ body.popup-show::after {
   display: none;
 }
 @media (max-width: 61.99875em) {
+  .nav__nav-close{
+    position: fixed;
+    top: 50px;
+    right: 3px;
+    z-index: 15;
+  }
   .nav__nav-close-btn {
     display: block;
     position: relative;

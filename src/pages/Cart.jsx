@@ -17,7 +17,7 @@ const Cart = () => {
             <meta name="description" content="Shop aplication" />
          </Helmet>
          <div className="cart">
-            <BreadCrumbs title="Корзина" />
+           
             <div className="cart__container">
                <div className="cart__row">
                   <div className="cart__products products-cart">

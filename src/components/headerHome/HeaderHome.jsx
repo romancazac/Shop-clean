@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavList } from '../navList/NavList'
 import logo from "../../asset/img/logo.png"
 export const HeaderHome = () => {
    return (
@@ -7,7 +6,7 @@ export const HeaderHome = () => {
          <div className="header__container">
             <div className="header__body ">
                <a href="#l" className="header__logo"><img src={logo} alt="logo"/></a>
-               <NavList/>      
+                  
                <ul className="header__socials socials">
                   <li className="socials__li"><a href="#" className="socials__icon socials__icon_fb"></a></li>
                   <li className="socials__li"><a href="#" className="socials__icon socials__icon_telegr"></a></li>

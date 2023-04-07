@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link,useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import cart from '../asset/img/cart.svg';
 import wish from '../asset/img/wish.svg';
@@ -18,17 +18,17 @@ import logo from "../asset/img/logo.png"
 import { HeaderCategories } from './headerCategories/HeaderCategories';
 
 
-function Header({onSearch,onBurger}) {
+function Header({ onSearch, onBurger }) {
    const isAuth = useSelector(selectIsAuth)
    const push = useNavigate();
    const dispatch = useDispatch();
 
 
-   const {saveData, isMounted} = useLs()
-   const { totalPrice, totalCount,dataCart } = useSelector(state => state.cart)
-   const { countWish, items} = useSelector(state => state.wish)
-   const { countCompare, dataCompare} = useSelector(state => state.compare)
-  
+   const { saveData, isMounted } = useLs()
+   const { totalPrice, totalCount, dataCart } = useSelector(state => state.cart)
+   const { countWish, items } = useSelector(state => state.wish)
+   const { countCompare, dataCompare } = useSelector(state => state.compare)
+
    useEffect(() => {
 
       if (isAuth) {
@@ -41,19 +41,19 @@ function Header({onSearch,onBurger}) {
 
    useEffect(() => {
 
-    saveData(items, "wish")  
-   isMounted.current= true
-   },[items])
+      saveData(items, "wish")
+      isMounted.current = true
+   }, [items])
    useEffect(() => {
 
-      saveData(dataCart, "cart")  
-     isMounted.current= true
-     },[dataCart])
+      saveData(dataCart, "cart")
+      isMounted.current = true
+   }, [dataCart])
    useEffect(() => {
-      saveData(dataCompare, "compare")  
-      isMounted.current= true
+      saveData(dataCompare, "compare")
+      isMounted.current = true
 
-   },[dataCompare])
+   }, [dataCompare])
 
    return (
       <header className="header">
@@ -67,10 +67,10 @@ function Header({onSearch,onBurger}) {
 
          </div>
          <div className="header__container">
-            <div className="header__body">
+            <div className="header__body header__body_top ">
                <Link to="/" className="header__logo"><img src={logo} alt="logo" /></Link>
                <div className="header__search search" data-da="header__bottom-m,0,767">
-                  <SearchProduct onSearch={onSearch}/>
+                  <SearchProduct onSearch={onSearch} />
                </div>
                <div className="header__action action">
                   {
@@ -84,7 +84,7 @@ function Header({onSearch,onBurger}) {
 
                         </button>
                   }
-             
+
                   <LogIn />
                   <div className="action__dynamic" data-da="nav__nav-close,0,767">
                      <Link to="/compare" className="action__item">
@@ -111,8 +111,14 @@ function Header({onSearch,onBurger}) {
          <div className="header__bottom">
             <div className="header__container header__bottom-m">
                <div className="header__body header-bottom">
-                   <HeaderCategories/>  
-                   <NavList onBurger={onBurger}/>     
+                  <button className="nav__burger icon-menu" onClick={onBurger}>
+                     <span></span>
+                  </button>
+                  <div className="header__nav nav">
+                     <HeaderCategories />
+                     <NavList onBurger={onBurger} />
+
+                  </div>
                   <div className="header__lg">
                      <select >
                         <option value="RO">RO </option>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 
 
 import { Outlet, useLocation} from 'react-router-dom'
@@ -12,6 +13,9 @@ const MainLayout = ({ onSearch}) => {
    const onBurger = () => {
       setOpen(!open)
    }
+   useEffect(() => {
+      setOpen(false)
+   },[location])
    return (
       <div className={`wrapper ${open ? "menu-open" : ''}`}>
          {location.pathname === '/' ?
